@@ -4,7 +4,6 @@ import android.Manifest
 import android.graphics.*
 import android.graphics.pdf.PdfDocument
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
@@ -12,17 +11,22 @@ import android.text.TextPaint
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import com.example.testreport.helper.PdfCreator
 import com.example.testreport.helper.PermissionHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
+
 class MainActivity : AppCompatActivity() {
 
     private var isGenerating = false
     private lateinit var bitmap: Bitmap
     private lateinit var scaledBitmap: Bitmap
+    val pdfCreator = PdfCreator
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +34,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        bitmap = BitmapFactory.decodeResource(resources, R.drawable.logonew)
-        scaledBitmap = Bitmap.createScaledBitmap(bitmap, 50, 17, false)
+        val options = BitmapFactory.Options()
+        options.inDither = false
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888
+        bitmap = BitmapFactory.decodeResource(resources, R.drawable.logonew, options)
+
+
+
+        bitmap = pdfCreator.getBitmapFromVectorDrawable(applicationContext, R.drawable.ic_mobile)!!
+        //scaledBitmap = Bitmap.createScaledBitmap(bitmap, 20, 20, false)
+        scaledBitmap = pdfCreator.BITMAP_RESIZER(bitmap, 20, 20)!!
 
         permissionCheck(false)
         buttonSavePdf.setOnClickListener {
@@ -98,17 +110,25 @@ class MainActivity : AppCompatActivity() {
 
         //Start of Top Header
         paint.color = getColor(R.color.extra_dark_blue)
-        paint.typeface = Typeface.create("Arial", Typeface.BOLD)
+        //paint.typeface = Typeface.create("Roboto", Typeface.BOLD)
+        val customTypeFace = ResourcesCompat.getFont(applicationContext, R.font.roboto_black)
+        paint.typeface = customTypeFace
         paint.textSize = 14F
         canvas.drawText("Health Choice Clinic", 80F, 25F, paint)
 
-        paint.typeface = Typeface.create("Arial", Typeface.NORMAL)
+        val customTypeFace2 = ResourcesCompat.getFont(applicationContext, R.font.roboto_medium)
+        paint.typeface = customTypeFace2
+        paint.letterSpacing = 0.001f
+        paint.isAntiAlias = true
+        paint.isLinearText = true
+        paint.isSubpixelText = true
         paint.color = getColor(R.color.black)
         paint.textSize = 5F
         canvas.drawText("8th floor Suratwala Mark Plazzo, Hinjawadi Pune", 80F, 35F, paint)
 
+
         canvas.drawLine(194F, 30F, 194F, 42F, paint)
-        paint.typeface = Typeface.create("Roboto", Typeface.NORMAL)
+        paint.typeface = customTypeFace2
         paint.textSize = 5F
         canvas.drawText("9452451241", 198F, 35F, paint)
         canvas.drawText("8245121416", 198F, 42F, paint)
@@ -117,40 +137,49 @@ class MainActivity : AppCompatActivity() {
         paint.textSize = 5F
         canvas.drawText("Maharastra, 41007", 80F, 40F, paint)
 
-        canvas.drawBitmap(scaledBitmap, 10f, 20f, paint)
+        paint.isAntiAlias = true
+        paint.isFilterBitmap = true
+        paint.isDither = true
+        canvas.drawBitmap(scaledBitmap, 10f, 20f, Paint(Paint.FILTER_BITMAP_FLAG))
         //End of Top Header
 
         //Start of Patient Detail Section
         paint.color = getColor(R.color.purple_700)
         canvas.drawRect(0F, 50F, 300F, 110F, paint)
         val textPaintPatient = TextPaint()
-        textPaintPatient.typeface = Typeface.create("Roboto", Typeface.BOLD)
+        val customTypeFace4 = ResourcesCompat.getFont(applicationContext, R.font.roboto_bold)
+        textPaintPatient.typeface = customTypeFace4
+        textPaintPatient.letterSpacing = 0.001f
+        textPaintPatient.isAntiAlias = true
+        textPaintPatient.isLinearText = true
+        textPaintPatient.isSubpixelText = true
         textPaintPatient.color = getColor(R.color.white)
         textPaintPatient.textSize = 6F
-        canvas.drawText("Patient Name   :", 10F, 65F,textPaintPatient)
-        canvas.drawText("Age & Gender   :", 10F, 75F,textPaintPatient)
-        canvas.drawText("Referred by      :", 10F, 85F,textPaintPatient)
-        canvas.drawText("Sample Type    :", 10F, 95F,textPaintPatient)
+        canvas.drawText("Patient Name   :", 10F, 65F, textPaintPatient)
+        canvas.drawText("Age & Gender   :", 10F, 75F, textPaintPatient)
+        canvas.drawText("Referred by      :", 10F, 85F, textPaintPatient)
+        canvas.drawText("Sample Type    :", 10F, 95F, textPaintPatient)
 
-        textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
-        canvas.drawText("Patient Name", 60F, 65F,textPaintPatient)
-        canvas.drawText("27 Year/Male", 60F, 75F,textPaintPatient)
-        canvas.drawText("Dr. Aditya Biswas", 60F, 85F,textPaintPatient)
-        canvas.drawText("EDTA Blood", 60F, 95F,textPaintPatient)
+        val customTypeFace5 = ResourcesCompat.getFont(applicationContext, R.font.roboto)
+        textPaintPatient.typeface = customTypeFace5
+        canvas.drawText("Patient Name", 60F, 65F, textPaintPatient)
+        canvas.drawText("27 Year/Male", 60F, 75F, textPaintPatient)
+        canvas.drawText("Dr. Aditya Biswas", 60F, 85F, textPaintPatient)
+        canvas.drawText("EDTA Blood", 60F, 95F, textPaintPatient)
 
         paint.color = getColor(R.color.white)
-        val midX = (canvas.width/2).toFloat()
+        val midX = (canvas.width / 2).toFloat()
         canvas.drawLine(midX, 50F, midX, 110F, paint)
 
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.BOLD)
-        canvas.drawText("Authorization Date   :", midX+10F, 65F,textPaintPatient)
-        canvas.drawText("Report Date   :", midX+10F, 75F,textPaintPatient)
-        canvas.drawText("Patient ID      :", midX+10F, 85F,textPaintPatient)
+        canvas.drawText("Authorization Date   :", midX + 4F, 65F, textPaintPatient)
+        canvas.drawText("Report Date   :", midX + 4F, 75F, textPaintPatient)
+        canvas.drawText("Patient ID      :", midX + 4F, 85F, textPaintPatient)
 
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
-        canvas.drawText("03/03/2021   10:30 am", midX+70, 65F,textPaintPatient)
-        canvas.drawText("03/03/2021   10:30 am", midX+70, 75F,textPaintPatient)
-        canvas.drawText("7653", midX+70, 85F,textPaintPatient)
+        canvas.drawText("03/03/2021   10:30 am", midX + 62, 65F, textPaintPatient)
+        canvas.drawText("03/03/2021   10:30 am", midX + 62, 75F, textPaintPatient)
+        canvas.drawText("7653", midX + 62, 85F, textPaintPatient)
         //End of the Patient Detail
 
 
@@ -179,12 +208,16 @@ class MainActivity : AppCompatActivity() {
 
         paint.color = getColor(R.color.grey)
         canvas.drawRect(10F, 135F, 237F, 145F, paint)
+        val customTypeFace3 = ResourcesCompat.getFont(applicationContext, R.font.roboto_medium)
+        textPaintPatient.typeface = customTypeFace3
         textPaintPatient.color = getColor(R.color.black)
-        textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
         canvas.drawText("Anaemia", 115F, 142F, textPaintPatient)
 
         //Parameter Content
-        textPaintPatient.typeface = Typeface.create("Arial", Typeface.BOLD)
+        textPaintPatient.letterSpacing = 0.001f
+        textPaintPatient.isAntiAlias = true
+        textPaintPatient.isLinearText = true
+        textPaintPatient.isSubpixelText = true
         canvas.drawText("Hgb Haemoglobin", 20F, 157F, textPaintPatient)
         canvas.drawText("Hct Hematocrit", 20F, 167F, textPaintPatient)
         canvas.drawText("Hct/Hgb (Calculated)", 20F, 177F, textPaintPatient)
@@ -194,12 +227,12 @@ class MainActivity : AppCompatActivity() {
 
         //Results Counts
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
-        canvas.drawText(":   15", 88F, 157F, textPaintPatient)
-        canvas.drawText(":   45", 88F, 167F, textPaintPatient)
-        canvas.drawText(":   2.7", 88F, 177F, textPaintPatient)
-        canvas.drawText(":   35", 88F, 187F, textPaintPatient)
-        canvas.drawText(":   45", 88F, 197F, textPaintPatient)
-        canvas.drawText(":   2.7", 88F, 207F, textPaintPatient)
+        canvas.drawText(":   15", 97F, 157F, textPaintPatient)
+        canvas.drawText(":   45", 97F, 167F, textPaintPatient)
+        canvas.drawText(":   2.7", 97F, 177F, textPaintPatient)
+        canvas.drawText(":   35", 97F, 187F, textPaintPatient)
+        canvas.drawText(":   45", 97F, 197F, textPaintPatient)
+        canvas.drawText(":   2.7", 97F, 207F, textPaintPatient)
 
         //Units
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
@@ -223,11 +256,15 @@ class MainActivity : AppCompatActivity() {
         paint.color = getColor(R.color.grey)
         canvas.drawRect(10F, 217F, 237F, 227F, paint)
         textPaintPatient.color = getColor(R.color.black)
-        textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
+        textPaintPatient.typeface = customTypeFace3
         canvas.drawText("Total & Differencial Count", 95F, 224F, textPaintPatient)
 
         //Parameter Content
-        textPaintPatient.typeface = Typeface.create("Arial", Typeface.BOLD)
+        textPaintPatient.typeface = customTypeFace3
+        textPaintPatient.letterSpacing = 0.001f
+        textPaintPatient.isAntiAlias = true
+        textPaintPatient.isLinearText = true
+        textPaintPatient.isSubpixelText = true
         canvas.drawText("White Blood Cell count", 20F, 239F, textPaintPatient)
         canvas.drawText("Neutrophill percent", 20F, 249F, textPaintPatient)
         canvas.drawText("Lymphocyte percent", 20F, 259F, textPaintPatient)
@@ -241,16 +278,16 @@ class MainActivity : AppCompatActivity() {
 
         //Results Counts
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
-        canvas.drawText(":   15", 90F, 239F, textPaintPatient)
-        canvas.drawText(":   45", 90F, 249F, textPaintPatient)
-        canvas.drawText(":   2.7", 90F, 259F, textPaintPatient)
-        canvas.drawText(":   35", 90F, 269F, textPaintPatient)
-        canvas.drawText(":   45", 90F, 279F, textPaintPatient)
-        canvas.drawText(":   2.7", 90F, 289F, textPaintPatient)
-        canvas.drawText(":   2.7", 95F, 299F, textPaintPatient)
-        canvas.drawText(":   35", 95F, 309F, textPaintPatient)
-        canvas.drawText(":   45", 95F, 319F, textPaintPatient)
-        canvas.drawText(":   2.7", 95F, 329F, textPaintPatient)
+        canvas.drawText(":   15", 97F, 239F, textPaintPatient)
+        canvas.drawText(":   45", 97F, 249F, textPaintPatient)
+        canvas.drawText(":   2.7", 97F, 259F, textPaintPatient)
+        canvas.drawText(":   35", 97F, 269F, textPaintPatient)
+        canvas.drawText(":   45", 97F, 279F, textPaintPatient)
+        canvas.drawText(":   2.7", 97F, 289F, textPaintPatient)
+        canvas.drawText(":   2.7", 97F, 299F, textPaintPatient)
+        canvas.drawText(":   35", 97F, 309F, textPaintPatient)
+        canvas.drawText(":   45", 97F, 319F, textPaintPatient)
+        canvas.drawText(":   2.7", 97F, 329F, textPaintPatient)
 
         //Units
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
@@ -279,25 +316,37 @@ class MainActivity : AppCompatActivity() {
         canvas.drawText("2.5-3.2", 168F, 329F, textPaintPatient)
 
 
-
         //Footer1
         paint.color = getColor(R.color.dark_blue)
         canvas.drawRect(0F, 370F, 300F, 390F, paint)
-        val xPos1 = (canvas.width/5).toFloat()
+        val xPos1 = (canvas.width / 5).toFloat()
         val textPaint1 = TextPaint()
+        val customTypeFace6 = ResourcesCompat.getFont(applicationContext, R.font.roboto_medium)
         textPaint1.color = getColor(R.color.white)
         textPaint1.textSize = 6F
-        canvas.drawText("+91 8508092626  |  support@mefy.care  |  CIN No. - 547474684656457", xPos1, 383F, textPaint1)
+        textPaint1.typeface = customTypeFace6
+        canvas.drawText(
+            "+91 8508092626  |  support@mefy.care  |  CIN No. - 547474684656457",
+            xPos1,
+            383F,
+            textPaint1
+        )
 
 
         //Footer2
         paint.color = getColor(R.color.purple_700)
         canvas.drawRect(0F, 390F, 300F, 400F, paint)
-        val xPos = (canvas.width/4).toFloat()
+        val xPos = (canvas.width / 4).toFloat()
         val textPaint = TextPaint()
         textPaint.color = getColor(R.color.white)
         textPaint.textSize = 5.5F
-        canvas.drawText("This Prescription is automatically generated by MeFy Care", xPos, 397F, textPaint)
+        textPaint.typeface = customTypeFace6
+        canvas.drawText(
+            "This Prescription is automatically generated by MeFy Care",
+            xPos,
+            397F,
+            textPaint
+        )
 
 
         //Top Border of the Page
@@ -330,4 +379,6 @@ class MainActivity : AppCompatActivity() {
     private fun isExternalStorageWritable(): Boolean {
         return Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()
     }
+
+
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:svgjs="http://svgjs.com/svgjs"
+    version="1.1"
+    width="512"
+    height="512"
+    x="0"
+    y="0"
+    viewBox="0 0 75 75"
+    style="enable-background:new 0 0 512 512"
+    xml:space="preserve"
+    class=""><circle r="37.5" cx="37.5" cy="37.5" fill="#002041" />
+    <g transform="matrix(0.7,0,0,0.7,11.25,11.250000858306887)"><path xmlns="http://www.w3.org/2000/svg" d="m22.329 53.107v5.368a3.023 3.023 0 0 0 3.026 3.025h24.29a3.03 3.03 0 0 0 3.026-3.025v-5.368zm15.166 5.513a1.959 1.959 0 1 1 1.959-1.959 1.966 1.966 0 0 1 -1.959 1.959z" fill="#ffffff"  style="" class=""/>
+        <path xmlns="http://www.w3.org/2000/svg"
+            d="m52.671 51.653v-35.128a3.03 3.03 0 0 0 -3.026-3.025h-24.29a3.023 3.023 0 0 0 -3.026 3.025v35.128zm-12.3-35.14h1.129a.728.728 0 0 1 0 1.455h-1.124a.728.728 0 0 1 0-1.455zm-6.885 0h4.574a.728.728 0 0 1 0 1.455h-4.569a.728.728 0 0 1 0-1.455z"
+            fill="#ffffff"
+            style=""
+            class="" /></g></svg>
