@@ -2,26 +2,19 @@ package com.example.testreport
 
 import android.Manifest
 import android.graphics.*
-import android.graphics.pdf.PdfDocument
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
-import android.text.TextPaint
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import com.example.testreport.helper.PdfCreator
 import com.example.testreport.helper.PermissionHelper
 import com.example.testreport.model.Parameter
 import com.example.testreport.model.ParameterResponse
 import com.example.testreport.model.Patient
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 
 class MainActivity : AppCompatActivity() {
@@ -73,8 +66,72 @@ class MainActivity : AppCompatActivity() {
                         18,
                         "g/dL",
                         "14-18"
+                    ),
+                    hct_hgb_calculated = ParameterResponse(
+                        2.7.toInt(),
+                        "",
+                        "2.5-3.2"
+                    ),
+                    wbc_count = ParameterResponse(
+                        3.7.toInt(),
+                        "10^9/L",
+                        "3.7-9.7"
+                    ),
+                    neutrophil_percent = ParameterResponse(
+                        43.8.toInt(),
+                        "%",
+                        "42.9-78.4"
+                    ),
+                    lymphocyte_percent = ParameterResponse(
+                        42.3.toInt(),
+                        "%",
+                        "14.1-15.8"
+                    ),
+                    monocyte_percent = ParameterResponse(
+                        3.5.toInt(),
+                        "%",
+                        "3.3-9.2"
+                    ),
+                    eosinophil_percent = ParameterResponse(
+                        2.3.toInt(),
+                        "%",
+                        "0.3-6.2"
+                    ),
+                    basophil_percent = ParameterResponse(
+                        1.2.toInt(),
+                        "%",
+                        "0.3-1.3"
+                    ),
+                    neutrophil_absolute_number = ParameterResponse(
+                        5.3.toInt(),
+                        "10^9/L",
+                        "2.0-6.7"
+                    ),
+                    lymphocyte_absolute_number = ParameterResponse(
+                        2.9.toInt(),
+                        "10^9/L",
+                        "1.1-3.3"
+                    ),
+                    monocyte_absolute_number = ParameterResponse(
+                        0.5.toInt(),
+                        "10^9/L",
+                        "0.2-0.7"
+                    ),
+                    eosinophil_absolute_number = ParameterResponse(
+                        0.1.toInt(),
+                        "10^9/L",
+                        "0.0-0.1"
+                    ),
+                    basophil_absolute_number = ParameterResponse(
+                        0.1.toInt(),
+                        "10^9/L",
+                        "0.0-0.1"
+                    ),
+                    nlr_calculated = ParameterResponse(
+                        1.53.toInt(),
+                        "",
+                        "1.63"
                     )
-
                 )
             ),
             Patient(
@@ -104,8 +161,72 @@ class MainActivity : AppCompatActivity() {
                         18,
                         "g/dL",
                         "14-18"
+                    ),
+                    hct_hgb_calculated = ParameterResponse(
+                        2.7.toInt(),
+                        "",
+                        "2.5-3.2"
+                    ),
+                    wbc_count = ParameterResponse(
+                        3.7.toInt(),
+                        "10^9/L",
+                        "3.7-9.7"
+                    ),
+                    neutrophil_percent = ParameterResponse(
+                        43.8.toInt(),
+                        "%",
+                        "42.9-78.4"
+                    ),
+                    lymphocyte_percent = ParameterResponse(
+                        42.3.toInt(),
+                        "%",
+                        "14.1-15.8"
+                    ),
+                    monocyte_percent = ParameterResponse(
+                        3.5.toInt(),
+                        "%",
+                        "3.3-9.2"
+                    ),
+                    eosinophil_percent = ParameterResponse(
+                        2.3.toInt(),
+                        "%",
+                        "0.3-6.2"
+                    ),
+                    basophil_percent = ParameterResponse(
+                        1.2.toInt(),
+                        "%",
+                        "0.3-1.3"
+                    ),
+                    neutrophil_absolute_number = ParameterResponse(
+                        5.3.toInt(),
+                        "10^9/L",
+                        "2.0-6.7"
+                    ),
+                    lymphocyte_absolute_number = ParameterResponse(
+                        2.9.toInt(),
+                        "10^9/L",
+                        "1.1-3.3"
+                    ),
+                    monocyte_absolute_number = ParameterResponse(
+                        0.5.toInt(),
+                        "10^9/L",
+                        "0.2-0.7"
+                    ),
+                    eosinophil_absolute_number = ParameterResponse(
+                        0.1.toInt(),
+                        "10^9/L",
+                        "0.0-0.1"
+                    ),
+                    basophil_absolute_number = ParameterResponse(
+                        0.1.toInt(),
+                        "10^9/L",
+                        "0.0-0.1"
+                    ),
+                    nlr_calculated = ParameterResponse(
+                        1.53.toInt(),
+                        "",
+                        "1.63"
                     )
-
                 )
             ),
             Patient(
@@ -135,70 +256,72 @@ class MainActivity : AppCompatActivity() {
                         18,
                         "g/dL",
                         "14-18"
+                    ),
+                    hct_hgb_calculated = ParameterResponse(
+                        2.7.toInt(),
+                        "",
+                        "2.5-3.2"
+                    ),
+                    wbc_count = ParameterResponse(
+                        3.7.toInt(),
+                        "10^9/L",
+                        "3.7-9.7"
+                    ),
+                    neutrophil_percent = ParameterResponse(
+                        43.8.toInt(),
+                        "%",
+                        "42.9-78.4"
+                    ),
+                    lymphocyte_percent = ParameterResponse(
+                        42.3.toInt(),
+                        "%",
+                        "14.1-15.8"
+                    ),
+                    monocyte_percent = ParameterResponse(
+                        3.5.toInt(),
+                        "%",
+                        "3.3-9.2"
+                    ),
+                    eosinophil_percent = ParameterResponse(
+                        2.3.toInt(),
+                        "%",
+                        "0.3-6.2"
+                    ),
+                    basophil_percent = ParameterResponse(
+                        1.2.toInt(),
+                        "%",
+                        "0.3-1.3"
+                    ),
+                    neutrophil_absolute_number = ParameterResponse(
+                        5.3.toInt(),
+                        "10^9/L",
+                        "2.0-6.7"
+                    ),
+                    lymphocyte_absolute_number = ParameterResponse(
+                        2.9.toInt(),
+                        "10^9/L",
+                        "1.1-3.3"
+                    ),
+                    monocyte_absolute_number = ParameterResponse(
+                        0.5.toInt(),
+                        "10^9/L",
+                        "0.2-0.7"
+                    ),
+                    eosinophil_absolute_number = ParameterResponse(
+                        0.1.toInt(),
+                        "10^9/L",
+                        "0.0-0.1"
+                    ),
+                    basophil_absolute_number = ParameterResponse(
+                        0.1.toInt(),
+                        "10^9/L",
+                        "0.0-0.1"
+                    ),
+                    nlr_calculated = ParameterResponse(
+                        1.53.toInt(),
+                        "",
+                        "1.63"
                     )
-
-                )
-            ),
-            Patient(
-                "DetailFragment Dada",
-                82,
-                "Male",
-                "Dr. Kotlin Generic",
-                "EDTA_Blood",
-                8932,
-                Parameter(
-                    hgb_haemoglobin = ParameterResponse(
-                        18,
-                        "g/dL",
-                        "14-18"
-                    ),
-                    hct_hematocrit = ParameterResponse(
-                        18,
-                        "g/dL",
-                        "14-18"
-                    ),
-                    hct_hgb = ParameterResponse(
-                        18,
-                        "g/dL",
-                        "14-18"
-                    ),
-                    mchc = ParameterResponse(
-                        18,
-                        "g/dL",
-                        "14-18"
-                    )
-
-                )
-            ),
-            Patient(
-                "Array Kumar",
-                32,
-                "Male",
-                "Dr. Kotlin Generic",
-                "EDTA_Blood",
-                3467,
-                Parameter(
-                    hgb_haemoglobin = ParameterResponse(
-                        18,
-                        "g/dL",
-                        "14-18"
-                    ),
-                    hct_hematocrit = ParameterResponse(
-                        18,
-                        "g/dL",
-                        "14-18"
-                    ),
-                    hct_hgb = ParameterResponse(
-                        18,
-                        "g/dL",
-                        "14-18"
-                    ),
-                    mchc = ParameterResponse(
-                        18,
-                        "g/dL",
-                        "14-18"
-                    )
-
                 )
             ),
         )
@@ -219,7 +342,55 @@ class MainActivity : AppCompatActivity() {
                         x.sample_type,
                         x.patient_id,
                         "16/03/2021   10:52 am",
-                        "22/03/2021   10:00 am"
+                        "22/03/2021   10:00 am",
+                        x.parameter.hgb_haemoglobin.results.toString(),
+                        x.parameter.hgb_haemoglobin.units,
+                        x.parameter.hgb_haemoglobin.ref_range,
+                        x.parameter.hct_hematocrit.results.toString(),
+                        x.parameter.hct_hematocrit.units,
+                        x.parameter.hct_hematocrit.ref_range,
+                        x.parameter.hct_hgb.results.toString(),
+                        x.parameter.hct_hgb.units,
+                        x.parameter.hct_hgb.ref_range,
+                        x.parameter.mchc.results.toString(),
+                        x.parameter.mchc.units,
+                        x.parameter.mchc.ref_range,
+                        x.parameter.wbc_count.results.toString(),
+                        x.parameter.wbc_count.units,
+                        x.parameter.wbc_count.ref_range,
+                        x.parameter.neutrophil_percent.results.toString(),
+                        x.parameter.neutrophil_percent.units,
+                        x.parameter.neutrophil_percent.ref_range,
+                        x.parameter.lymphocyte_percent.results.toString(),
+                        x.parameter.lymphocyte_percent.units,
+                        x.parameter.lymphocyte_percent.ref_range,
+                        x.parameter.monocyte_percent.results.toString(),
+                        x.parameter.monocyte_percent.units,
+                        x.parameter.monocyte_percent.ref_range,
+                        x.parameter.eosinophil_percent.results.toString(),
+                        x.parameter.eosinophil_percent.units,
+                        x.parameter.eosinophil_percent.ref_range,
+                        x.parameter.basophil_percent.results.toString(),
+                        x.parameter.basophil_percent.units,
+                        x.parameter.basophil_percent.ref_range,
+                        x.parameter.neutrophil_absolute_number.results.toString(),
+                        x.parameter.neutrophil_absolute_number.units,
+                        x.parameter.neutrophil_absolute_number.ref_range,
+                        x.parameter.lymphocyte_absolute_number.results.toString(),
+                        x.parameter.lymphocyte_absolute_number.units,
+                        x.parameter.lymphocyte_absolute_number.ref_range,
+                        x.parameter.monocyte_absolute_number.results.toString(),
+                        x.parameter.monocyte_absolute_number.units,
+                        x.parameter.monocyte_absolute_number.ref_range,
+                        x.parameter.eosinophil_absolute_number.results.toString(),
+                        x.parameter.eosinophil_absolute_number.units,
+                        x.parameter.eosinophil_absolute_number.ref_range,
+                        x.parameter.basophil_absolute_number.results.toString(),
+                        x.parameter.basophil_absolute_number.units,
+                        x.parameter.basophil_absolute_number.ref_range,
+                        x.parameter.nlr_calculated.results.toString(),
+                        x.parameter.nlr_calculated.units,
+                        x.parameter.nlr_calculated.ref_range,
                     )
                 }
             }

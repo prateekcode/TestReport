@@ -31,7 +31,55 @@ object PdfCreator {
         sampleType:String,
         patientId:Int,
         authorizationDate: String,
-        reportDate: String
+        reportDate: String,
+        hgb_haemoglobin_result:String,
+        hgb_haemoglobin_units:String,
+        hgb_haemoglobin_ref_range:String,
+        hct_hematocrit_result:String,
+        hct_hematocrit_unit:String,
+        hct_hematocrit_ref_range:String,
+        hct_hgb_result:String,
+        hct_hgb_units:String,
+        hct_hgb_ref_range:String,
+        mchc_result:String,
+        mchc_units:String,
+        mchc_ref_range:String,
+        wbc_results:String,
+        wbc_units:String,
+        wbc_ref_range:String,
+        neutrophil_percent_results:String,
+        neutrophil_percent_units:String,
+        neutrophil_percent_ref_range:String,
+        lymphocyte_percent_results:String,
+        lymphocyte_percent_units:String,
+        lymphocyte_percent_ref_range:String,
+        monocyte_percent_results:String,
+        monocyte_percent_units:String,
+        monocyte_percent_ref_range:String,
+        eosinophil_percent_results:String,
+        eosinophil_percent_units:String,
+        eosinophil_percent_ref_range:String,
+        basophil_percent_results:String,
+        basophil_percent_units:String,
+        basophil_percent_ref_range:String,
+        neutrophil_absolute_num_results:String,
+        neutrophil_absolute_num_units:String,
+        neutrophil_absolute_num_ref_range:String,
+        lymphocyte_absolute_num_results:String,
+        lymphocyte_absolute_num_units:String,
+        lymphocyte_absolute_num_ref_range:String,
+        monocyte_absolute_num_results:String,
+        monocyte_absolute_num_units:String,
+        monocyte_absolute_num_ref_range:String,
+        eosinophil_absolute_num_results:String,
+        eosinophil_absolute_num_units:String,
+        eosinophil_absolute_num_ref_range:String,
+        basophil_absolute_num_results:String,
+        basophil_absolute_num_units:String,
+        basophil_absolute_num_ref_range:String,
+        nlr_calculated_results: String,
+        nlr_calculated_units:String,
+        nlr_calculated_ref_range:String
     ) {
         val pdfDocument = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             PdfDocument()
@@ -172,30 +220,30 @@ object PdfCreator {
 
         //Results Counts
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
-        canvas.drawText(":   15", 97F, 157F, textPaintPatient)
-        canvas.drawText(":   45", 97F, 167F, textPaintPatient)
-        canvas.drawText(":   2.7", 97F, 177F, textPaintPatient)
-        canvas.drawText(":   35", 97F, 187F, textPaintPatient)
-        canvas.drawText(":   45", 97F, 197F, textPaintPatient)
-        canvas.drawText(":   2.7", 97F, 207F, textPaintPatient)
+        canvas.drawText(":   $hgb_haemoglobin_result", 97F, 157F, textPaintPatient)
+        canvas.drawText(":   $hct_hematocrit_result", 97F, 167F, textPaintPatient)
+        canvas.drawText(":   $hct_hgb_result", 97F, 177F, textPaintPatient)
+        canvas.drawText(":   $mchc_result", 97F, 187F, textPaintPatient)
+        canvas.drawText(":   $hct_hematocrit_result", 97F, 197F, textPaintPatient)
+        canvas.drawText(":   $hct_hgb_result", 97F, 207F, textPaintPatient)
 
         //Units
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
-        canvas.drawText("g/dL", 130F, 157F, textPaintPatient)
-        canvas.drawText("%", 130F, 167F, textPaintPatient)
-        canvas.drawText("", 130F, 177F, textPaintPatient)
-        canvas.drawText("g/dL", 130F, 187F, textPaintPatient)
-        canvas.drawText("%", 130F, 197F, textPaintPatient)
-        canvas.drawText("", 130F, 207F, textPaintPatient)
+        canvas.drawText(hgb_haemoglobin_units, 130F, 157F, textPaintPatient)
+        canvas.drawText(hct_hematocrit_unit, 130F, 167F, textPaintPatient)
+        canvas.drawText(hct_hgb_units, 130F, 177F, textPaintPatient)
+        canvas.drawText(mchc_units, 130F, 187F, textPaintPatient)
+        canvas.drawText(hct_hematocrit_unit, 130F, 197F, textPaintPatient)
+        canvas.drawText(hct_hgb_units, 130F, 207F, textPaintPatient)
 
         //Ref. Range
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
-        canvas.drawText("14-18", 168F, 157F, textPaintPatient)
-        canvas.drawText("45-54", 168F, 167F, textPaintPatient)
-        canvas.drawText("2.5-3.2", 168F, 177F, textPaintPatient)
-        canvas.drawText("32.5-36", 168F, 187F, textPaintPatient)
-        canvas.drawText("42-54", 168F, 197F, textPaintPatient)
-        canvas.drawText("2.5-3.2", 168F, 207F, textPaintPatient)
+        canvas.drawText(hgb_haemoglobin_ref_range, 168F, 157F, textPaintPatient)
+        canvas.drawText(hct_hematocrit_ref_range, 168F, 167F, textPaintPatient)
+        canvas.drawText(hct_hgb_ref_range, 168F, 177F, textPaintPatient)
+        canvas.drawText(mchc_ref_range, 168F, 187F, textPaintPatient)
+        canvas.drawText(hct_hematocrit_ref_range, 168F, 197F, textPaintPatient)
+        canvas.drawText(hct_hgb_ref_range, 168F, 207F, textPaintPatient)
 
         //Total & Differencial Count
         paint.color = ContextCompat.getColor(context, R.color.grey)
@@ -223,42 +271,42 @@ object PdfCreator {
 
         //Results Counts
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
-        canvas.drawText(":   15", 97F, 239F, textPaintPatient)
-        canvas.drawText(":   45", 97F, 249F, textPaintPatient)
-        canvas.drawText(":   2.7", 97F, 259F, textPaintPatient)
-        canvas.drawText(":   35", 97F, 269F, textPaintPatient)
-        canvas.drawText(":   45", 97F, 279F, textPaintPatient)
-        canvas.drawText(":   2.7", 97F, 289F, textPaintPatient)
-        canvas.drawText(":   2.7", 97F, 299F, textPaintPatient)
-        canvas.drawText(":   35", 97F, 309F, textPaintPatient)
-        canvas.drawText(":   45", 97F, 319F, textPaintPatient)
-        canvas.drawText(":   2.7", 97F, 329F, textPaintPatient)
+        canvas.drawText(":   $wbc_results", 97F, 239F, textPaintPatient)
+        canvas.drawText(":   $neutrophil_percent_results", 97F, 249F, textPaintPatient)
+        canvas.drawText(":   $lymphocyte_percent_results", 97F, 259F, textPaintPatient)
+        canvas.drawText(":   $monocyte_percent_results", 97F, 269F, textPaintPatient)
+        canvas.drawText(":   $eosinophil_percent_results", 97F, 279F, textPaintPatient)
+        canvas.drawText(":   $basophil_percent_results", 97F, 289F, textPaintPatient)
+        canvas.drawText(":   $neutrophil_absolute_num_results", 97F, 299F, textPaintPatient)
+        canvas.drawText(":   $lymphocyte_absolute_num_results", 97F, 309F, textPaintPatient)
+        canvas.drawText(":   $monocyte_absolute_num_results", 97F, 319F, textPaintPatient)
+        canvas.drawText(":   $eosinophil_absolute_num_results", 97F, 329F, textPaintPatient)
 
         //Units
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
-        canvas.drawText("10^9/L", 130F, 239F, textPaintPatient)
-        canvas.drawText("%", 130F, 249F, textPaintPatient)
-        canvas.drawText("%", 130F, 259F, textPaintPatient)
-        canvas.drawText("%", 130F, 269F, textPaintPatient)
-        canvas.drawText("%", 130F, 279F, textPaintPatient)
-        canvas.drawText("%", 130F, 289F, textPaintPatient)
-        canvas.drawText("10^9/L", 130F, 299F, textPaintPatient)
-        canvas.drawText("10^9/L", 130F, 309F, textPaintPatient)
-        canvas.drawText("10^9/L", 130F, 319F, textPaintPatient)
-        canvas.drawText("10^9/L", 130F, 329F, textPaintPatient)
+        canvas.drawText(wbc_units, 130F, 239F, textPaintPatient)
+        canvas.drawText(neutrophil_percent_units, 130F, 249F, textPaintPatient)
+        canvas.drawText(lymphocyte_percent_units, 130F, 259F, textPaintPatient)
+        canvas.drawText(monocyte_percent_units, 130F, 269F, textPaintPatient)
+        canvas.drawText(eosinophil_percent_units, 130F, 279F, textPaintPatient)
+        canvas.drawText(basophil_percent_units, 130F, 289F, textPaintPatient)
+        canvas.drawText(neutrophil_absolute_num_units, 130F, 299F, textPaintPatient)
+        canvas.drawText(lymphocyte_absolute_num_units, 130F, 309F, textPaintPatient)
+        canvas.drawText(monocyte_absolute_num_units, 130F, 319F, textPaintPatient)
+        canvas.drawText(eosinophil_absolute_num_units, 130F, 329F, textPaintPatient)
 
         //Ref. Range
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
-        canvas.drawText("14-18", 168F, 239F, textPaintPatient)
-        canvas.drawText("45-54", 168F, 249F, textPaintPatient)
-        canvas.drawText("2.5-3.2", 168F, 259F, textPaintPatient)
-        canvas.drawText("32.5-36", 168F, 269F, textPaintPatient)
-        canvas.drawText("42-54", 168F, 279F, textPaintPatient)
-        canvas.drawText("2.5-3.2", 168F, 289F, textPaintPatient)
-        canvas.drawText("2.5-3.2", 168F, 299F, textPaintPatient)
-        canvas.drawText("32.5-36", 168F, 309F, textPaintPatient)
-        canvas.drawText("42-54", 168F, 319F, textPaintPatient)
-        canvas.drawText("2.5-3.2", 168F, 329F, textPaintPatient)
+        canvas.drawText(wbc_ref_range, 168F, 239F, textPaintPatient)
+        canvas.drawText(neutrophil_percent_ref_range, 168F, 249F, textPaintPatient)
+        canvas.drawText(lymphocyte_percent_ref_range, 168F, 259F, textPaintPatient)
+        canvas.drawText(monocyte_percent_ref_range, 168F, 269F, textPaintPatient)
+        canvas.drawText(eosinophil_percent_ref_range, 168F, 279F, textPaintPatient)
+        canvas.drawText(basophil_percent_ref_range, 168F, 289F, textPaintPatient)
+        canvas.drawText(neutrophil_absolute_num_ref_range, 168F, 299F, textPaintPatient)
+        canvas.drawText(lymphocyte_absolute_num_ref_range, 168F, 309F, textPaintPatient)
+        canvas.drawText(monocyte_absolute_num_ref_range, 168F, 319F, textPaintPatient)
+        canvas.drawText(eosinophil_absolute_num_ref_range, 168F, 329F, textPaintPatient)
 
 
         //Footer1
@@ -425,15 +473,18 @@ object PdfCreator {
         newCanvas.drawText("Basophil absolute number", 20F, 157F, textPaintPatient)
         newCanvas.drawText("NLR(Calculated)", 20F, 167F, textPaintPatient)
 
+        //Results
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.NORMAL)
-        newCanvas.drawText(":   0.1", 97F, 157F, textPaintPatient)
-        newCanvas.drawText(":   1.53", 97F, 167F, textPaintPatient)
+        newCanvas.drawText(":   $basophil_absolute_num_results", 97F, 157F, textPaintPatient)
+        newCanvas.drawText(":   $nlr_calculated_results", 97F, 167F, textPaintPatient)
 
-        newCanvas.drawText("10^9/L", 130F, 157F, textPaintPatient)
-        newCanvas.drawText("", 130F, 167F, textPaintPatient)
+        //Units
+        newCanvas.drawText(basophil_absolute_num_units, 130F, 157F, textPaintPatient)
+        newCanvas.drawText(nlr_calculated_units, 130F, 167F, textPaintPatient)
 
-        newCanvas.drawText("0.0-0.1", 168F, 157F, textPaintPatient)
-        newCanvas.drawText("1.63", 168F, 167F, textPaintPatient)
+        //Ref Range
+        newCanvas.drawText(basophil_absolute_num_ref_range, 168F, 157F, textPaintPatient)
+        newCanvas.drawText(nlr_calculated_ref_range, 168F, 167F, textPaintPatient)
 
 
         //Footer1
