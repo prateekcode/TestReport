@@ -49,7 +49,7 @@ class PermissionHelper {
 
     private fun checkIfPermissionPresentInAndroidManifest() {
         for (permission in permissions!!) {
-            if (hasPermissionInManifest(permission) == false) {
+            if (!hasPermissionInManifest(permission)) {
                 throw RuntimeException("Permission ($permission) Not Declared in manifest")
             }
         }
@@ -57,7 +57,7 @@ class PermissionHelper {
 
     fun request(permissionCallback: PermissionCallback?) {
         this.mPermissionCallback = permissionCallback
-        if (hasPermission() == false) {
+        if (!hasPermission()) {
             showRational = shouldShowRational(permissions!!)
             if (activity != null)
                 ActivityCompat.requestPermissions(activity!!, filterNotGrantedPermission(permissions!!), REQUEST_CODE)

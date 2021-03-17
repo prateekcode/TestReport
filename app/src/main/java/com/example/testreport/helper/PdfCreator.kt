@@ -1,11 +1,13 @@
 package com.example.testreport.helper
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.graphics.*
 import android.graphics.pdf.PdfDocument
 import android.os.Build
 import android.os.Environment
 import android.text.TextPaint
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -13,9 +15,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.example.testreport.R
 import com.google.android.material.color.MaterialColors.getColor
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
+import java.io.*
+import java.lang.StringBuilder
 
 
 object PdfCreator {
@@ -101,7 +102,7 @@ object PdfCreator {
         val customTypeFace = ResourcesCompat.getFont(context, R.font.roboto_black)
         paint.typeface = customTypeFace
         paint.textSize = 14F
-        canvas.drawText("Health Choice Clinic", 80F, 25F, paint)
+        canvas.drawText("Mars Mission Alien Clinic", 80F, 25F, paint)
 
         val customTypeFace2 = ResourcesCompat.getFont(context, R.font.roboto_medium)
         paint.typeface = customTypeFace2
@@ -111,28 +112,32 @@ object PdfCreator {
         paint.isSubpixelText = true
         paint.color = ContextCompat.getColor(context, R.color.black)
         paint.textSize = 5F
-        canvas.drawText("8th floor Suratwala Mark Plazzo, Hinjawadi Pune", 80F, 35F, paint)
+        canvas.drawText("ABC Place not Exist in this world", 80F, 35F, paint)
 
 
         canvas.drawLine(194F, 30F, 194F, 42F, paint)
         paint.typeface = customTypeFace2
         paint.textSize = 5F
-        canvas.drawText("9452451241", 198F, 35F, paint)
-        canvas.drawText("8245121416", 198F, 42F, paint)
+        canvas.drawText("xxxxxxxxxx", 198F, 35F, paint)
+        canvas.drawText("xxxxxxxxxx", 198F, 42F, paint)
 
         paint.color = ContextCompat.getColor(context, R.color.black)
         paint.textSize = 5F
-        canvas.drawText("Maharastra, 41007", 80F, 40F, paint)
+        canvas.drawText("Mars", 80F, 40F, paint)
 
         paint.isAntiAlias = true
         paint.isFilterBitmap = true
         paint.isDither = true
+
+        //LOGO of the company
         canvas.drawBitmap(
-            BITMAP_RESIZER(bitmap, 50, 20)!!,
+            BITMAP_RESIZER(bitmap, 60, 50)!!,
             10f,
-            20f,
-            Paint(Paint.FILTER_BITMAP_FLAG)
+            0f,
+            paint
         )
+
+
         //End of Top Header
 
         //Start of Patient Detail Section
@@ -558,7 +563,11 @@ object PdfCreator {
         //Writing File to the External Storage
         if (isExternalStorageWritable()) {
             val file = File(Environment.getExternalStorageDirectory(), "/NewTest.pdf")
+            //val fileOutputStream: FileOutputStream
+
             try {
+                //fileOutputStream = context.openFileOutput("NewTest.pdf", MODE_PRIVATE)
+                //fileOutputStream.write(pdfDocument.pages)
                 pdfDocument.writeTo(FileOutputStream(file))
                 pdfDocument.close()
                 Toast.makeText(
@@ -585,6 +594,29 @@ object PdfCreator {
     fun isExternalStorageWritable(): Boolean {
         return Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()
     }
+
+//    fun readingTheFile(): String{
+//        if (isExternalStorageWritable()){
+//            val stringBuilder = StringBuilder()
+//            try {
+//                val pdfFile = File(Environment.getExternalStorageDirectory(), "/NewTest.pdf")
+//                val fileInputStream = FileInputStream(pdfFile)
+//                if (fileInputStream!=null){
+//                    val inputStreamReader = InputStreamReader(fileInputStream)
+//                    val bufferedReader = BufferedReader(inputStreamReader)
+//                    var newString =null as String
+//                    while ((bufferedReader.readLine().also { newString = it }) != null){
+//                        stringBuilder.append(newString + "\n")
+//                    }
+//                    fileInputStream.close()
+//                }
+//                return stringBuilder.toString()
+//            }catch (e: IOException){
+//                e.printStackTrace()
+//            }
+//        }
+//    }
+
 
 
     fun BITMAP_RESIZER(bitmap: Bitmap, newWidth: Int, newHeight: Int): Bitmap? {

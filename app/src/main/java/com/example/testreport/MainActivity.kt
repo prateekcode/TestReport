@@ -4,25 +4,33 @@ import android.Manifest
 import android.graphics.*
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.testreport.helper.ImageResizer
 import com.example.testreport.helper.PdfCreator
+import com.example.testreport.helper.PdfReader
 import com.example.testreport.helper.PermissionHelper
 import com.example.testreport.model.Parameter
 import com.example.testreport.model.ParameterResponse
 import com.example.testreport.model.Patient
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.*
+import java.lang.StringBuilder
 
 
 class MainActivity : AppCompatActivity() {
 
+    private val filepath = "/"
     private var isGenerating = false
     private lateinit var bitmap: Bitmap
     private lateinit var scaledBitmap: Bitmap
     val pdfCreator = PdfCreator
+    val imageResizer = ImageResizer
+    internal var myExternalFile: File?=null
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +38,45 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+//        if (PdfCreator.isExternalStorageWritable()){
+//            val stringBuilder = StringBuilder()
+//            try {
+//                val pdfFile = File(Environment.getExternalStorageDirectory(), "/NewTest.pdf")
+//                val fileInputStream = FileInputStream(pdfFile)
+//                val inputStreamReader = InputStreamReader(fileInputStream)
+//                val bufferedReader = BufferedReader(inputStreamReader)
+//                var newString: String? = null
+//                while ((bufferedReader.readLine().also { newString = it }) != null){
+//                    stringBuilder.append(newString + "\n")
+//                }
+//                fileInputStream.close()
+//                fileNameTextView.text = stringBuilder.toString()
+//            }catch (e: IOException){
+//                e.printStackTrace()
+//            }
+//        }
+
+        var gpath: String = Environment.getExternalStorageDirectory().absolutePath
+        Log.w("gpath", "" + gpath)
+        var spath = ""
+        var fullpath = File(gpath + File.separator + spath)
+        Log.w("fullpath", "" + fullpath)
+        PdfReader.pdfReaderNew(fullpath)
+        val lastPdf = PdfReader.pdfReaderNew(fullpath)
+        fileNameTextView.text = lastPdf[2].name
+
         val options = BitmapFactory.Options()
-        options.inDither = false
+        //options.inDither = false
         options.inPreferredConfig = Bitmap.Config.ARGB_8888
-        bitmap = BitmapFactory.decodeResource(resources, R.drawable.logo, options)
+
+        //bitmap = imageResizer.decodeSampledBitmapFromResource(resources, R.drawable.logo, 20, 8)
+
+        bitmap = BitmapFactory.decodeResource(resources, R.drawable.circle, options)
+
+//        val imageHeight: Int = options.outHeight
+//        val imageWidth: Int = options.outWidth
+//        val imageType: String = options.outMimeType
+
         //bitmap = pdfCreator.getBitmapFromVectorDrawable(applicationContext, R.drawable.ic_mobile)!!
         scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 20, false)
         //scaledBitmap = pdfCreator.BITMAP_RESIZER(bitmap, 200, 18)!!
@@ -334,7 +377,7 @@ class MainActivity : AppCompatActivity() {
                 for (x in patientDetail){
                     pdfCreator.createTestReportPdf(
                         applicationContext,
-                        scaledBitmap,
+                        bitmap,
                         x.patient_name,
                         x.patient_age,
                         x.patient_gender,
