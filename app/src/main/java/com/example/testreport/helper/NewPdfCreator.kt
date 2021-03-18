@@ -169,7 +169,7 @@ object NewPdfCreator {
                 for (parameter in newPatient.sampleType.conditionList[i].conditionTypeList.indices) {
                     globalY = 147f + ((parameter * 10) + 10).toFloat()
                     canvas.drawText(
-                        newPatient.sampleType.conditionList[0].conditionTypeList[parameter].parameterName,
+                        newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterName,
                         20F,
                         globalY,
                         textPaintPatient
@@ -177,6 +177,27 @@ object NewPdfCreator {
                     Log.d(
                         "GLOBALYNEW",
                         "Value of Global Y is $globalY and overall value is ${142f + globalY}"
+                    )
+                    //Results
+                    canvas.drawText(
+                        ":   ${newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.results}",
+                        97F,
+                        globalY,
+                        textPaintPatient
+                    )
+                    //Units
+                    canvas.drawText(
+                        newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.units,
+                        135F,
+                        globalY,
+                        textPaintPatient
+                    )
+                    //Ref Range
+                    canvas.drawText(
+                        newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.ref_range,
+                        173F,
+                        globalY,
+                        textPaintPatient
                     )
                 }
             } else {
@@ -195,19 +216,38 @@ object NewPdfCreator {
                     textPaintPatient
                 )
                 //Text of condition name inside the border
-                for (new in newPatient.sampleType.conditionList[i].conditionTypeList.indices){
+                for (parameter in newPatient.sampleType.conditionList[i].conditionTypeList.indices) {
                     //globalY =  ((new * 10) + 10).toFloat()
-                    val newY = globalY + ((new * 10) + 10).toFloat()
+                    val newY = globalY + ((parameter * 10) + 10).toFloat()
                     canvas.drawText(
-                        newPatient.sampleType.conditionList[i].conditionTypeList[new].parameterName,
+                        newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterName,
                         20F,
+                        newY + 25f,
+                        textPaintPatient
+                    )
+                    //Results
+                    canvas.drawText(
+                        ":   ${newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.results}",
+                        97F,
+                        newY + 25f,
+                        textPaintPatient
+                    )
+                    //Units
+                    canvas.drawText(
+                        newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.units,
+                        135F,
+                        newY + 25f,
+                        textPaintPatient
+                    )
+                    //Ref Range
+                    canvas.drawText(
+                        newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.ref_range,
+                        173F,
                         newY + 25f,
                         textPaintPatient
                     )
                 }
             }
-
-
 
 
         }
