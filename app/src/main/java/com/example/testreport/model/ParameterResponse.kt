@@ -1,7 +1,8 @@
 package com.example.testreport.model
 
 data class ParameterResponse(
-    val results: Int,
+    val results: String,
     val units: String,
-    val ref_range: String
+    val ref_range: String,
+    val bar_code_image:Int
 )

@@ -7,5 +7,6 @@ data class Patient(
     val referred_doctor: String,
     val sample_type: String,
     val patient_id: Int,
-    val parameter: Parameter
+    val parameter: Parameter,
+    //val parameter: List<ParameterResponse>
 )
