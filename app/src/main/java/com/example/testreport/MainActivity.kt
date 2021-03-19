@@ -771,6 +771,59 @@ class MainActivity : AppCompatActivity() {
 
                                 )
 
+                        ),
+                        Conditions(
+                            "Complete Blood Count",
+                            "Test of Heart",
+                            listOf(
+                                Parameters(
+                                    "Red Blood Cell",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Neutrophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Lymphocyte percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Monocyte percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+
+                                )
+
                         )
                     )
                 )

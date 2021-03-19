@@ -31,6 +31,59 @@ object NewPdfCreator {
         val paint = Paint()
         val canvas = page1.canvas as Canvas
 
+        //Hospital Name & Address Header
+        headerPaint(context, bitmap, canvas, paint)
+
+        //Patient Detail including Name, Age, Id and many more
+        patientDetail(context, canvas, paint, newPatient)
+
+        //Table of Test
+        headerTable(context, canvas, paint)
+
+        //Test Content
+        testTableContent(context, newPatient, paint, canvas)
+
+        //Footer Method
+        footerPaint(context, canvas, paint)
+
+        //End of the pdf
+        newPdfDocument.finishPage(page1)
+
+
+        //Writing File to the External Storage
+        if (isExternalStorageWritable()) {
+            val file = File(Environment.getExternalStorageDirectory(), "/NewTest.pdf")
+            //val fileOutputStream: FileOutputStream
+
+            try {
+                //fileOutputStream = context.openFileOutput("NewTest.pdf", MODE_PRIVATE)
+                //fileOutputStream.write(pdfDocument.pages)
+                newPdfDocument.writeTo(FileOutputStream(file))
+                newPdfDocument.close()
+                Toast.makeText(
+                    context,
+                    "File is successfully saved ${file.path}",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            } catch (e: IOException) {
+                Toast.makeText(
+                    context,
+                    "File is not saved ${e.localizedMessage}",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+                e.printStackTrace()
+            }
+        } else {
+            Toast.makeText(context, "Can't save to external storage", Toast.LENGTH_SHORT).show()
+            newPdfDocument.close()
+        }
+
+    }
+
+    //Start of Top Header (Hospital Details)  (TYPE - STATIC)
+    private fun headerPaint(context: Context,bitmap: Bitmap, canvas: Canvas, paint: Paint){
         //Start of Top Header (Hospital Details)  (TYPE - STATIC)
         paint.color = ContextCompat.getColor(context, R.color.custom_blue)
         val customTypeFace = ResourcesCompat.getFont(context, R.font.roboto_black)
@@ -70,7 +123,10 @@ object NewPdfCreator {
             paint
         )
         //End of Top Header (Hospital Details)  (TYPE - STATIC)
+    }
 
+    // Patient Detail Method
+    private fun patientDetail(context: Context, canvas: Canvas, paint: Paint, newPatient: NewPatient){
         //Start of PATIENT Detail Section
         paint.color = ContextCompat.getColor(context, R.color.custom_blue)
         canvas.drawRect(0F, 50F, 300F, 110F, paint)
@@ -109,11 +165,15 @@ object NewPdfCreator {
         canvas.drawText(newPatient.reportDate, midX + 62, 75F, textPaintPatient)
         canvas.drawText(newPatient.patientId, midX + 62, 85F, textPaintPatient)
         //End of the Patient Detail
+    }
 
-        //Table of Test
-
+    // Header Table
+    private fun headerTable(context: Context, canvas: Canvas, paint: Paint){
         // Top Header (Static Type)
         paint.color = ContextCompat.getColor(context, R.color.custom_light_blue)
+        val textPaintPatient = TextPaint()
+        textPaintPatient.textSize = 6F
+        textPaintPatient.color = ContextCompat.getColor(context, R.color.white)
         canvas.drawRect(10F, 115F, 80F, 125F, paint)
         textPaintPatient.typeface = Typeface.create("Roboto", Typeface.BOLD)
         canvas.drawText("Parameter", 20F, 122F, textPaintPatient)
@@ -131,127 +191,10 @@ object NewPdfCreator {
         canvas.drawText("Barcode", 209F, 122F, textPaintPatient)
 
         //End of Top Header(Static Type)
-        var globalY: Float = 0f
-        for (i in newPatient.sampleType.conditionList.indices) {
+    }
 
-            //Condition Header
-            paint.color = ContextCompat.getColor(context, R.color.custom_extra_light_blue)
-            canvas.drawRect(10F, 125F, 237F, 135F, paint)
-            textPaintPatient.color = ContextCompat.getColor(context, R.color.black)
-            canvas.drawText(
-                newPatient.sampleType.conditionList[i].condtionHeader,
-                95F,
-                132F,
-                textPaintPatient
-            )
-            Log.d("GLOBALY", "Value of Global Y is $globalY and overall value is ${142f + globalY}")
-
-            //Condition Name
-            val customTypeFace3 = ResourcesCompat.getFont(context, R.font.roboto_medium)
-            textPaintPatient.typeface = customTypeFace3
-            textPaintPatient.color = ContextCompat.getColor(context, R.color.black)
-            if (i == 0) {
-                paint.color = ContextCompat.getColor(context, R.color.light_grey)
-                canvas.drawRect(10F, 135F, 237F, 145F, paint)   //Border of condition name
-                textPaintPatient.color = ContextCompat.getColor(context, R.color.black)
-                canvas.drawText(
-                    newPatient.sampleType.conditionList[i].conditionName,
-                    115F,
-                    142F,
-                    textPaintPatient
-                )
-                //Text of condition name inside the border
-                //Parameter Content
-                textPaintPatient.letterSpacing = 0.001f
-                textPaintPatient.isAntiAlias = true
-                textPaintPatient.isLinearText = true
-                textPaintPatient.isSubpixelText = true
-                for (parameter in newPatient.sampleType.conditionList[i].conditionTypeList.indices) {
-                    globalY = 147f + ((parameter * 10) + 10).toFloat()
-                    canvas.drawText(
-                        newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterName,
-                        20F,
-                        globalY,
-                        textPaintPatient
-                    )
-                    Log.d(
-                        "GLOBALYNEW",
-                        "Value of Global Y is $globalY and overall value is ${142f + globalY}"
-                    )
-                    //Results
-                    canvas.drawText(
-                        ":   ${newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.results}",
-                        97F,
-                        globalY,
-                        textPaintPatient
-                    )
-                    //Units
-                    canvas.drawText(
-                        newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.units,
-                        135F,
-                        globalY,
-                        textPaintPatient
-                    )
-                    //Ref Range
-                    canvas.drawText(
-                        newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.ref_range,
-                        173F,
-                        globalY,
-                        textPaintPatient
-                    )
-                }
-            } else {
-                paint.color = ContextCompat.getColor(context, R.color.light_grey)
-                canvas.drawRect(
-                    10F,
-                    globalY + 13f,
-                    237F,
-                    globalY + 23f,
-                    paint
-                )   //Border of condition name
-                canvas.drawText(
-                    newPatient.sampleType.conditionList[i].conditionName,
-                    canvas.width / 2.7f,
-                    globalY + 20f,
-                    textPaintPatient
-                )
-                //Text of condition name inside the border
-                for (parameter in newPatient.sampleType.conditionList[i].conditionTypeList.indices) {
-                    //globalY =  ((new * 10) + 10).toFloat()
-                    val newY = globalY + ((parameter * 10) + 10).toFloat()
-                    canvas.drawText(
-                        newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterName,
-                        20F,
-                        newY + 25f,
-                        textPaintPatient
-                    )
-                    //Results
-                    canvas.drawText(
-                        ":   ${newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.results}",
-                        97F,
-                        newY + 25f,
-                        textPaintPatient
-                    )
-                    //Units
-                    canvas.drawText(
-                        newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.units,
-                        135F,
-                        newY + 25f,
-                        textPaintPatient
-                    )
-                    //Ref Range
-                    canvas.drawText(
-                        newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.ref_range,
-                        173F,
-                        newY + 25f,
-                        textPaintPatient
-                    )
-                }
-            }
-
-
-        }
-
+    // Footer
+    private fun footerPaint(context: Context, canvas: Canvas, paint: Paint){
         //Footer1
         paint.color = ContextCompat.getColor(context, R.color.custom_light_blue)
         canvas.drawRect(0F, 370F, 300F, 390F, paint)
@@ -293,41 +236,8 @@ object NewPdfCreator {
         paint.color = ContextCompat.getColor(context, R.color.custom_blue)
         canvas.drawLine(10F, 0F, 10F, 10F, paint)
 
-        //End of the pdf
-        newPdfDocument.finishPage(page1)
-
-
-        //Writing File to the External Storage
-        if (isExternalStorageWritable()) {
-            val file = File(Environment.getExternalStorageDirectory(), "/NewTest.pdf")
-            //val fileOutputStream: FileOutputStream
-
-            try {
-                //fileOutputStream = context.openFileOutput("NewTest.pdf", MODE_PRIVATE)
-                //fileOutputStream.write(pdfDocument.pages)
-                newPdfDocument.writeTo(FileOutputStream(file))
-                newPdfDocument.close()
-                Toast.makeText(
-                    context,
-                    "File is successfully saved ${file.path}",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-            } catch (e: IOException) {
-                Toast.makeText(
-                    context,
-                    "File is not saved ${e.localizedMessage}",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-                e.printStackTrace()
-            }
-        } else {
-            Toast.makeText(context, "Can't save to external storage", Toast.LENGTH_SHORT).show()
-            newPdfDocument.close()
-        }
-
     }
+
 
     private fun isExternalStorageWritable(): Boolean {
         return Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()
