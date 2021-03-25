@@ -37,6 +37,8 @@ fun testTableContent(context: Context, newPatient: NewPatient, paint: Paint, can
         )
         Log.d("GLOBALY", "Value of Global Y is $globalY and overall value is ${142f + globalY}")
 
+
+        //Return last length
         //Condition Name
         val customTypeFace3 = ResourcesCompat.getFont(context, R.font.roboto_medium)
         textPaintPatient.typeface = customTypeFace3
