@@ -605,6 +605,87 @@ class MainActivity : AppCompatActivity() {
                                         1
                                     )
                                 ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+
+
 
                                 )
 
@@ -752,6 +833,85 @@ class MainActivity : AppCompatActivity() {
                                 ),
                                 Parameters(
                                     "Monocyte percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
                                     ParameterResponse(
                                         "3.7",
                                         "10^9/L",

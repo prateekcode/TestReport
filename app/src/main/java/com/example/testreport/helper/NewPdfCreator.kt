@@ -1,5 +1,6 @@
 package com.example.testreport.helper
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -7,6 +8,7 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
 import android.os.Environment
+import android.os.Handler
 import android.text.TextPaint
 import android.util.Log
 import android.widget.Toast
@@ -27,7 +29,10 @@ object NewPdfCreator {
     ) {
         val newPdfDocument = PdfDocument()
         val pageInfoNew = PdfDocument.PageInfo.Builder(250, 400, 1).create()
+
+        //Start of the page
         val page1 = newPdfDocument.startPage(pageInfoNew) as PdfDocument.Page
+
         val paint = Paint()
         val canvas = page1.canvas as Canvas
 
@@ -41,13 +46,48 @@ object NewPdfCreator {
         headerTable(context, canvas, paint)
 
         //Test Content
-        testTableContent(context, newPatient, paint, canvas)
+        testTableContent(context, newPatient, paint, canvas, bitmap)
 
         //Footer Method
         footerPaint(context, canvas, paint)
 
         //End of the pdf
         newPdfDocument.finishPage(page1)
+        //End of the Page
+
+        //Start of Page 2
+        val pageInfoNew2 = PdfDocument.PageInfo.Builder(250, 400, 2).create()
+
+        //Start of the page
+        val page2 = newPdfDocument.startPage(pageInfoNew) as PdfDocument.Page
+
+        val paint2 = Paint()
+        val canvas2 = page2.canvas as Canvas
+
+        //Hospital Name & Address Header
+        headerPaint(context, bitmap, canvas2, paint2)
+
+        //Patient Detail including Name, Age, Id and many more
+        patientDetail(context, canvas2, paint2, newPatient)
+
+        //Table of Test
+        headerTable(context, canvas2, paint2)
+
+        //Checking the log for last height and last parameter
+
+        //Test Content
+        //testTableContent(context, newPatient, paint2, canvas2, bitmap)
+
+        //It will call only when there's space left in the page 1, 2 or 3 further
+        //So it can be observed by the last height
+        pathologistDetail(context, canvas2)
+
+        //Footer Method
+        footerPaint(context, canvas2, paint2)
+
+        //End of the pdf
+        newPdfDocument.finishPage(page2)
+        //End of the Page
 
 
         //Writing File to the External Storage
@@ -83,7 +123,7 @@ object NewPdfCreator {
     }
 
     //Start of Top Header (Hospital Details)  (TYPE - STATIC)
-    private fun headerPaint(context: Context,bitmap: Bitmap, canvas: Canvas, paint: Paint){
+    fun headerPaint(context: Context, bitmap: Bitmap, canvas: Canvas, paint: Paint) {
         //Start of Top Header (Hospital Details)  (TYPE - STATIC)
         paint.color = ContextCompat.getColor(context, R.color.custom_blue)
         val customTypeFace = ResourcesCompat.getFont(context, R.font.roboto_black)
@@ -126,7 +166,7 @@ object NewPdfCreator {
     }
 
     // Patient Detail Method
-    private fun patientDetail(context: Context, canvas: Canvas, paint: Paint, newPatient: NewPatient){
+    fun patientDetail(context: Context, canvas: Canvas, paint: Paint, newPatient: NewPatient) {
         //Start of PATIENT Detail Section
         paint.color = ContextCompat.getColor(context, R.color.custom_blue)
         canvas.drawRect(0F, 50F, 300F, 110F, paint)
@@ -168,7 +208,7 @@ object NewPdfCreator {
     }
 
     // Header Table
-    private fun headerTable(context: Context, canvas: Canvas, paint: Paint){
+    fun headerTable(context: Context, canvas: Canvas, paint: Paint) {
         // Top Header (Static Type)
         paint.color = ContextCompat.getColor(context, R.color.custom_light_blue)
         val textPaintPatient = TextPaint()
@@ -194,7 +234,7 @@ object NewPdfCreator {
     }
 
     // Footer
-    private fun footerPaint(context: Context, canvas: Canvas, paint: Paint){
+    fun footerPaint(context: Context, canvas: Canvas, paint: Paint) {
         //Footer1
         paint.color = ContextCompat.getColor(context, R.color.custom_light_blue)
         canvas.drawRect(0F, 370F, 300F, 390F, paint)
