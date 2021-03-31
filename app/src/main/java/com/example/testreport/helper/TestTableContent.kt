@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.pdf.PdfDocument
 import android.text.TextPaint
 import android.util.Log
 import androidx.core.content.ContextCompat
@@ -14,10 +13,11 @@ import com.example.testreport.R
 import com.example.testreport.model.LastValue
 import com.example.testreport.model.NewPatient
 
-fun testTableContent(context: Context, newPatient: NewPatient, paint: Paint, canvas: Canvas, bitmap: Bitmap) {
+
+fun testTableContent(context: Context, newPatient: NewPatient, paint: Paint, canvas: Canvas): LastValue {
     var globalY: Float = 0f
     var newY: Float = 0f
-    //val lastValue = LastValue()
+    val lastValue = LastValue()
     var lastValueOfI: Int = 0
     var lastHeight: Float = 0f
     val textPaintPatient = TextPaint()
@@ -223,6 +223,10 @@ fun testTableContent(context: Context, newPatient: NewPatient, paint: Paint, can
 
     }
     Log.d(TAG, "testTableContent: The last value of the i at the end is $lastValueOfI")
+    lastValue.lastValueOfI = lastValueOfI
+    Log.d(TAG, "testTableContent: ${lastValue.lastValueOfI}")
     Log.d(TAG, "testTableContent: The last value of the newY at the end is $lastHeight ")
-
+    lastValue.lastHeight = lastHeight
+    Log.d(TAG, "testTableContent: ${lastValue.lastHeight}")
+    return lastValue
 }

@@ -8,7 +8,6 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
 import android.os.Environment
-import android.os.Handler
 import android.text.TextPaint
 import android.util.Log
 import android.widget.Toast
@@ -19,6 +18,7 @@ import com.example.testreport.model.NewPatient
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.lang.Exception
 
 object NewPdfCreator {
 
@@ -46,7 +46,7 @@ object NewPdfCreator {
         headerTable(context, canvas, paint)
 
         //Test Content
-        testTableContent(context, newPatient, paint, canvas, bitmap)
+        testTableContent(context, newPatient, paint, canvas)
 
         //Footer Method
         footerPaint(context, canvas, paint)
@@ -55,44 +55,58 @@ object NewPdfCreator {
         newPdfDocument.finishPage(page1)
         //End of the Page
 
-        //Start of Page 2
-        val pageInfoNew2 = PdfDocument.PageInfo.Builder(250, 400, 2).create()
+        // ------------------------------------------------------------------------------------------------------------ //
 
-        //Start of the page
-        val page2 = newPdfDocument.startPage(pageInfoNew) as PdfDocument.Page
+        //Page2 will only create after the height of TestTableContent is more than 330f
 
-        val paint2 = Paint()
-        val canvas2 = page2.canvas as Canvas
+        val lastValues = testTableContent(context, newPatient, Paint(), Canvas())
+        Log.d(TAG, "LAST VALUE -----> $lastValues")
+        if (lastValues.lastHeight >= 330f) {
+            //Start of Page 2
+            val pageInfoNew2 = PdfDocument.PageInfo.Builder(250, 400, 2).create()
+            //Start of the page
+            val page2 = newPdfDocument.startPage(pageInfoNew2) as PdfDocument.Page
+            val paint2 = Paint()
+            val canvas2 = page2.canvas as Canvas
 
-        //Hospital Name & Address Header
-        headerPaint(context, bitmap, canvas2, paint2)
 
-        //Patient Detail including Name, Age, Id and many more
-        patientDetail(context, canvas2, paint2, newPatient)
+            //Hospital Name & Address Header
+            headerPaint(context, bitmap, canvas2, paint2)
 
-        //Table of Test
-        headerTable(context, canvas2, paint2)
+            //Patient Detail including Name, Age, Id and many more
+            patientDetail(context, canvas2, paint2, newPatient)
 
-        //Checking the log for last height and last parameter
+            //Table of Test
+            headerTable(context, canvas2, paint2)
 
-        //Test Content
-        //testTableContent(context, newPatient, paint2, canvas2, bitmap)
+            //Test Content
+            //testTableContent(context, newPatient, paint2, canvas2, bitmap)
 
-        //It will call only when there's space left in the page 1, 2 or 3 further
-        //So it can be observed by the last height
-        pathologistDetail(context, canvas2)
 
-        //Footer Method
-        footerPaint(context, canvas2, paint2)
+            //It will call only when there's space left in the page 1, 2 or 3 further
+            //So it can be observed by the last height
+            pathologistDetail(context, canvas2)
 
-        //End of the pdf
-        newPdfDocument.finishPage(page2)
-        //End of the Page
+            //Footer Method
+            footerPaint(context, canvas2, paint2)
+
+            //End of the pdf
+            newPdfDocument.finishPage(page2)
+            //End of the Page
+
+        } else {
+            Log.d("NO_REQUIRED", "There's no required of the page")
+        }
 
 
         //Writing File to the External Storage
         if (isExternalStorageWritable()) {
-            val file = File(Environment.getExternalStorageDirectory(), "/NewTest.pdf")
+            val path = Environment.getExternalStorageDirectory().toString() + "/" + "TestReport/"
+            val directory = File(path)
+            if (!directory.exists()) {
+                directory.mkdirs()
+            }
+            val file = File(Environment.getExternalStorageDirectory(), "/TestReport/NewTest.pdf")
             //val fileOutputStream: FileOutputStream
 
             try {

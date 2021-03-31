@@ -14,7 +14,6 @@ import com.example.testreport.helper.*
 import com.example.testreport.model.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
-import java.lang.StringBuilder
 
 
 class MainActivity : AppCompatActivity() {
@@ -631,22 +630,6 @@ class MainActivity : AppCompatActivity() {
                                         "3.7-9.3",
                                         1
                                     )
-                                ),Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
                                 ),
                                 Parameters(
                                     "Eosinophil percent",
@@ -684,7 +667,24 @@ class MainActivity : AppCompatActivity() {
                                         1
                                     )
                                 ),
-
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Eosinophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
 
 
                                 )
@@ -798,7 +798,7 @@ class MainActivity : AppCompatActivity() {
                                         2
                                     )
                                 ),
-                                )
+                            )
                         ),
                         Conditions(
                             "Complete Blood Count",
@@ -875,7 +875,8 @@ class MainActivity : AppCompatActivity() {
                                         "3.7-9.3",
                                         1
                                     )
-                                ),Parameters(
+                                ),
+                                Parameters(
                                     "Eosinophil percent",
                                     ParameterResponse(
                                         "3.7",
@@ -883,7 +884,8 @@ class MainActivity : AppCompatActivity() {
                                         "3.7-9.3",
                                         1
                                     )
-                                ),Parameters(
+                                ),
+                                Parameters(
                                     "Eosinophil percent",
                                     ParameterResponse(
                                         "3.7",
