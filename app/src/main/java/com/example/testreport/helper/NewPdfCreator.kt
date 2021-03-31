@@ -61,7 +61,7 @@ object NewPdfCreator {
 
         val lastValues = testTableContent(context, newPatient, Paint(), Canvas())
         Log.d(TAG, "LAST VALUE -----> $lastValues")
-        if (lastValues.lastHeight >= 330f) {
+        if (lastValues.lastHeight > 330f) {
             //Start of Page 2
             val pageInfoNew2 = PdfDocument.PageInfo.Builder(250, 400, 2).create()
             //Start of the page
@@ -80,7 +80,12 @@ object NewPdfCreator {
             headerTable(context, canvas2, paint2)
 
             //Test Content
-            //testTableContent(context, newPatient, paint2, canvas2, bitmap)
+            testTableContent2(context, newPatient, paint2, canvas2)
+            val newHeight = testTableContent2(context, newPatient, paint2, canvas2)
+            Log.d(TAG, "NewHeight is ${newHeight.lastHeight}")
+            if (newHeight.lastHeight < 330f){
+                testTableContent3(context, newPatient, paint2, canvas2)
+            }
 
 
             //It will call only when there's space left in the page 1, 2 or 3 further
@@ -94,10 +99,35 @@ object NewPdfCreator {
             newPdfDocument.finishPage(page2)
             //End of the Page
 
-        } else {
-            Log.d("NO_REQUIRED", "There's no required of the page")
         }
+        else {
+            //Start of Page 2
+            val pageInfoNew2 = PdfDocument.PageInfo.Builder(250, 400, 2).create()
+            //Start of the page
+            val page2 = newPdfDocument.startPage(pageInfoNew2) as PdfDocument.Page
+            val paint2 = Paint()
+            val canvas2 = page2.canvas as Canvas
+            //Hospital Name & Address Header
+            headerPaint(context, bitmap, canvas2, paint2)
 
+            //Patient Detail including Name, Age, Id and many more
+            patientDetail(context, canvas2, paint2, newPatient)
+
+            //Table of Test
+            headerTable(context, canvas2, paint2)
+            Log.d(TAG, "The last height is ${testTableContent2(context, newPatient, paint2, canvas2).lastHeight}")
+            testTableContent3(context, newPatient, paint2, canvas2)
+            Log.d("NO_REQUIRED", "There's no required of the page")
+            //It will call only when there's space left in the page 1, 2 or 3 further
+            //So it can be observed by the last height
+            pathologistDetail(context, canvas2)
+
+            //Footer Method
+            footerPaint(context, canvas2, paint2)
+            //End of the pdf
+            newPdfDocument.finishPage(page2)
+            //End of the Page
+        }
 
         //Writing File to the External Storage
         if (isExternalStorageWritable()) {
@@ -106,7 +136,7 @@ object NewPdfCreator {
             if (!directory.exists()) {
                 directory.mkdirs()
             }
-            val file = File(Environment.getExternalStorageDirectory(), "/TestReport/NewTest.pdf")
+            val file = File(Environment.getExternalStorageDirectory(), "/TestReport/${newPatient.patientName}.pdf")
             //val fileOutputStream: FileOutputStream
 
             try {
