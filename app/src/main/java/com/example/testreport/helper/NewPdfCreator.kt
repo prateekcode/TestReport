@@ -18,7 +18,6 @@ import com.example.testreport.model.NewPatient
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.lang.Exception
 
 object NewPdfCreator {
 

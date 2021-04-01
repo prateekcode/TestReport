@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.testreport.freshcreation.CreateThePdf
 import com.example.testreport.helper.*
 import com.example.testreport.model.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -399,10 +400,15 @@ class MainActivity : AppCompatActivity() {
         buttonSavePdf.setOnClickListener {
             permissionCheck(true)
             for (new in newPatientDetail) {
-                NewPdfCreator.createFreshTestReport(
+//                NewPdfCreator.createFreshTestReport(
+//                    applicationContext,
+//                    bitmap,
+//                    new
+//                )
+                CreateThePdf.createThePdf(
+                    new,
                     applicationContext,
-                    bitmap,
-                    new
+                    bitmap
                 )
             }
             //createNewPdf()
@@ -595,7 +601,6 @@ class MainActivity : AppCompatActivity() {
                                         1
                                     )
                                 ),
-
 
 
                                 )
