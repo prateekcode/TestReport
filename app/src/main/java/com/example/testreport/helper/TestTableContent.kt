@@ -159,7 +159,7 @@ fun testTableContent(context: Context, newPatient: NewPatient, paint: Paint, can
                         //lastValue.lastValueOfI= parameter
                         Log.d(TAG, "testTableContent: The last value of newY is $newY ")
                         lastHeight = newY
-                        Log.d(TAG, "testTableContent: The last value of newY is $lastHeight ")
+                        Log.d(TAG, "testTableContent: The last value of ${newPatient.patientName} newY is $lastHeight ")
                         //lastValue.lastHeight = newY
                     }else if (newY > 330f){
                         //create a new page and shift the remaining item into that one
@@ -171,7 +171,7 @@ fun testTableContent(context: Context, newPatient: NewPatient, paint: Paint, can
                 }
 
                 Log.d(TAG, "testTableContent: The last value of the outside loop i is $lastValueOfI")
-                Log.d(TAG, "testTableContent: The last value of the outside loop newY is $lastHeight ")
+                Log.d(TAG, "testTableContent: The last value of ${newPatient.patientName} the outside loop newY is $lastHeight ")
 
             }
 
@@ -232,6 +232,6 @@ fun testTableContent(context: Context, newPatient: NewPatient, paint: Paint, can
     Log.d(TAG, "testTableContent: ${lastValue.lastValueOfI}")
     Log.d(TAG, "testTableContent: The last value of the newY at the end is $lastHeight ")
     lastValue.lastHeight = lastHeight
-    Log.d(TAG, "testTableContent: ${lastValue.lastHeight}")
+    Log.d(TAG, "testTableContent of ${newPatient.patientName}: ${lastValue.lastHeight}")
     return lastValue
 }

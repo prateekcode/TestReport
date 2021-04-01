@@ -22,11 +22,16 @@ import java.lang.Exception
 
 object NewPdfCreator {
 
+
+
     fun createFreshTestReport(
         context: Context,
         bitmap: Bitmap,
         newPatient: NewPatient
     ) {
+        val gettingLastValue = testTableContent(context, newPatient, Paint(), Canvas())
+        val lastValues = testTableContent(context, newPatient, Paint(), Canvas())
+        val newHeight = testTableContent2(context, newPatient, Paint(), Canvas())
         val newPdfDocument = PdfDocument()
         val pageInfoNew = PdfDocument.PageInfo.Builder(250, 400, 1).create()
 
@@ -47,6 +52,10 @@ object NewPdfCreator {
 
         //Test Content
         testTableContent(context, newPatient, paint, canvas)
+        if (265f > gettingLastValue.lastHeight){
+            Log.d(TAG, "GETTING LAST VALUE ABOVE--------------> ${gettingLastValue.lastHeight}")
+            pathologistDetail(context, canvas)
+        }
 
         //Footer Method
         footerPaint(context, canvas, paint)
@@ -57,9 +66,10 @@ object NewPdfCreator {
 
         // ------------------------------------------------------------------------------------------------------------ //
 
+        Log.d(TAG, "Getting the pages ${newPdfDocument.pages}")
         //Page2 will only create after the height of TestTableContent is more than 330f
 
-        val lastValues = testTableContent(context, newPatient, Paint(), Canvas())
+        Log.d(TAG, "GETTING LAST VALUE --------------> ${gettingLastValue.lastHeight}")
         Log.d(TAG, "LAST VALUE -----> $lastValues")
         if (lastValues.lastHeight > 330f) {
             //Start of Page 2
@@ -79,17 +89,19 @@ object NewPdfCreator {
             //Table of Test
             headerTable(context, canvas2, paint2)
 
-            //Test Content
+           // Test Content
             testTableContent2(context, newPatient, paint2, canvas2)
-            val newHeight = testTableContent2(context, newPatient, paint2, canvas2)
+            //val newHeight = testTableContent2(context, newPatient, paint2, canvas2)
             Log.d(TAG, "NewHeight is ${newHeight.lastHeight}")
-            if (newHeight.lastHeight < 330f){
-                testTableContent3(context, newPatient, paint2, canvas2)
-            }
+//            if (newHeight.lastHeight < 330f){
+//                testTableContent3(context, newPatient, paint2, canvas2)
+//            }
 
 
             //It will call only when there's space left in the page 1, 2 or 3 further
             //So it can be observed by the last height
+
+
             pathologistDetail(context, canvas2)
 
             //Footer Method
@@ -99,33 +111,32 @@ object NewPdfCreator {
             newPdfDocument.finishPage(page2)
             //End of the Page
 
-        }
-        else {
+        } else {
             //Start of Page 2
-            val pageInfoNew2 = PdfDocument.PageInfo.Builder(250, 400, 2).create()
+            //val pageInfoNew2 = PdfDocument.PageInfo.Builder(250, 400, 2).create()
             //Start of the page
-            val page2 = newPdfDocument.startPage(pageInfoNew2) as PdfDocument.Page
-            val paint2 = Paint()
-            val canvas2 = page2.canvas as Canvas
+            //val page2 = newPdfDocument.startPage(pageInfoNew2) as PdfDocument.Page
+            //val paint2 = Paint()
+            //val canvas2 = page2.canvas as Canvas
             //Hospital Name & Address Header
-            headerPaint(context, bitmap, canvas2, paint2)
+            //headerPaint(context, bitmap, canvas2, paint2)
 
             //Patient Detail including Name, Age, Id and many more
-            patientDetail(context, canvas2, paint2, newPatient)
+            //patientDetail(context, canvas2, paint2, newPatient)
 
             //Table of Test
-            headerTable(context, canvas2, paint2)
-            Log.d(TAG, "The last height is ${testTableContent2(context, newPatient, paint2, canvas2).lastHeight}")
-            testTableContent3(context, newPatient, paint2, canvas2)
-            Log.d("NO_REQUIRED", "There's no required of the page")
+            //headerTable(context, canvas2, paint2)
+            //Log.d(TAG, "The last height is ${testTableContent2(context, newPatient, paint2, canvas2).lastHeight}")
+            //testTableContent3(context, newPatient, paint2, canvas2)
+            Log.d("NO_REQUIRED", "There's no required of the page in ${newPatient.patientName}")
             //It will call only when there's space left in the page 1, 2 or 3 further
             //So it can be observed by the last height
-            pathologistDetail(context, canvas2)
+            //pathologistDetail(context, canvas2)
 
             //Footer Method
-            footerPaint(context, canvas2, paint2)
+            //footerPaint(context, canvas2, paint2)
             //End of the pdf
-            newPdfDocument.finishPage(page2)
+            //newPdfDocument.finishPage(page2)
             //End of the Page
         }
 
@@ -163,6 +174,8 @@ object NewPdfCreator {
             Toast.makeText(context, "Can't save to external storage", Toast.LENGTH_SHORT).show()
             newPdfDocument.close()
         }
+
+        Log.d(TAG, "Getting the pages for ${newPatient.patientName} ---> ${newPdfDocument.pages.size}")
 
     }
 
