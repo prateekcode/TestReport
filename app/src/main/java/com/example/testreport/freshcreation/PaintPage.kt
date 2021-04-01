@@ -19,13 +19,31 @@ object PaintPage {
         bitmap: Bitmap,
         newPatient: NewPatient,
         canvas: Canvas,
-    ){
+    ): Float{
+        headerPaint(context, bitmap, canvas)
+        patientDetail(context, canvas, newPatient)
+        elementHeaderTable(context, canvas)
+        elementTableContent(context, canvas, newPatient)
+        pathologistDetail(context, canvas) //This will change according to the elementTableContent() height
+        footerPaint(context, canvas)
+
+        return elementTableContent(context, canvas, newPatient)
+    }
+
+    fun newPagePainting(
+        context: Context,
+        bitmap: Bitmap,
+        newPatient: NewPatient,
+        canvas: Canvas,
+    ): Boolean{
         headerPaint(context, bitmap, canvas)
         patientDetail(context, canvas, newPatient)
         elementHeaderTable(context, canvas)
         elementTableContent(context, canvas, newPatient)
         pathologistDetail(context, canvas)
         footerPaint(context, canvas)
+
+        return elementTableContent(context, canvas, newPatient)>330f
     }
 
     //Header of the Page
@@ -147,9 +165,21 @@ object PaintPage {
         context: Context,
         canvas: Canvas,
         newPatient: NewPatient,
-    ){
+    ): Float{
         var textPaint = TextPaint()
+        var downYStartPoint = 125f
+        //if downYStartPoint is greater than 330f then page will be changes
+        //so first thing need to return is downYStartPoint last value in the end
+        //of the process
 
+        downYStartPoint = 340f
+
+        //if arrayList height > 350f return downy
+        //else return downYStart
+
+        //downYStartPoint = 220f
+
+        return downYStartPoint
     }
 
     //Pathologist Detail

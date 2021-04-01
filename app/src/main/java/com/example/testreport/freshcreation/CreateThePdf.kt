@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.pdf.PdfDocument
+import android.util.Log
 import com.example.testreport.model.NewPatient
 
 object CreateThePdf {
@@ -14,17 +15,46 @@ object CreateThePdf {
         bitmap: Bitmap
     ) {
         val createPdfDocument = PdfDocument()
+        val globalVariableForPageCount = 1
         val pageInf = PdfDocument
             .PageInfo
-            .Builder(250, 400, 1)
+            .Builder(250, 400, globalVariableForPageCount)
             .create()
 
         //Start of the page 1
         val page1 = createPdfDocument.startPage(pageInf) as PdfDocument.Page
 
         PaintPage.pagePainting(context, bitmap, newPatient, page1.canvas as Canvas)
-        createPdfDocument.finishPage(page1)
+        createPdfDocument.finishPage(page1) //I don't need to finish right now
         //End of the page 1
+
+        Log.d("CREATE_PDF", "The last Value of the first page is ${PaintPage.pagePainting(context, bitmap, newPatient, Canvas())}")
+
+
+
+//        val lastHeight = PaintPage.pagePainting(context, bitmap, newPatient, Canvas())
+//        if (lastHeight>330f){
+//            globalVariableForPageCount += 1
+//            var i = 1
+//            while (i < globalVariableForPageCount){
+//                val page = createPdfDocument.startPage(pageInf)
+//                PaintPage.pagePainting(context, bitmap, newPatient, page.canvas as Canvas)
+//                createPdfDocument.finishPage(page)
+//                i++
+//            }
+//        }
+//
+
+        var isHeightAbove330f = PaintPage.newPagePainting(context, bitmap, newPatient, Canvas()) //It returning True right now
+        while (isHeightAbove330f){
+            val page = createPdfDocument.startPage(pageInf)
+            PaintPage.pagePainting(context, bitmap, newPatient, page.canvas as Canvas)
+            createPdfDocument.finishPage(page)
+            if (createPdfDocument.pages.size > 2) isHeightAbove330f = false
+        }
+        //I want that isHeightAbove330f returns false when height less than 330f
+
+
 
         //Writing File to the External Storage
         WritingToStorage.writingToExternalStorage(context, createPdfDocument, newPatient)
@@ -34,7 +64,7 @@ object CreateThePdf {
         //so creation of the page must be dynamic as well
 
         //if the size of page 1 increased from 330f then it will come to
-        //page 2 and if it crosses the value of height of page2 then it
+        //page 2 and again if it crosses the value of height of page2 then it
         // goes to page3 and so on
 
         //What I need to do is I need the last height of the every page
@@ -81,7 +111,8 @@ object CreateThePdf {
         // parameter passed into pages are
         //context, newPatient, bitmap, lastValue, paint, canvas
 
-
+        //I can create a boolean to check every time that is really passed the value more than 330f or not
+        //something like isHeightAbove330f = true or false if it true then it will create a new page
 
     }
 
