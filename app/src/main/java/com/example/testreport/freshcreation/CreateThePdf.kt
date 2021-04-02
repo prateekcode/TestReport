@@ -16,20 +16,23 @@ object CreateThePdf {
     ) {
         val createPdfDocument = PdfDocument()
         val globalVariableForPageCount = 1
-        val pageInf = PdfDocument
-            .PageInfo
-            .Builder(250, 400, globalVariableForPageCount)
-            .create()
+
 
         //Start of the page 1
-        val page1 = createPdfDocument.startPage(pageInf) as PdfDocument.Page
+//        val page1 = createPdfDocument.startPage(pageInf) as PdfDocument.Page
+//
+//        PaintPage.pagePainting(context, bitmap, newPatient, page1.canvas as Canvas)
+//        createPdfDocument.finishPage(page1) //I don't need to finish right now
+//        //End of the page 1
+//
+//        val page = createPdfDocument.startPage(pageInf)
+//        PaintPage.pagePainting(context, bitmap, newPatient, page.canvas as Canvas)
+//        createPdfDocument.finishPage(page)
 
-        PaintPage.pagePainting(context, bitmap, newPatient, page1.canvas as Canvas)
-        createPdfDocument.finishPage(page1) //I don't need to finish right now
-        //End of the page 1
+        //Log.d("CREATE_PDF", "The last Value of the first page is ${PaintPage.pagePainting(context, bitmap, newPatient, Canvas())}")
 
-        Log.d("CREATE_PDF", "The last Value of the first page is ${PaintPage.pagePainting(context, bitmap, newPatient, Canvas())}")
-
+        //Writing File to the External Storage
+        //WritingToStorage.writingToExternalStorage(context, createPdfDocument, newPatient)
 
 
 //        val lastHeight = PaintPage.pagePainting(context, bitmap, newPatient, Canvas())
@@ -45,19 +48,18 @@ object CreateThePdf {
 //        }
 //
 
-        var isHeightAbove330f = PaintPage.newPagePainting(context, bitmap, newPatient, Canvas()) //It returning True right now
-        while (isHeightAbove330f){
-            val page = createPdfDocument.startPage(pageInf)
-            PaintPage.pagePainting(context, bitmap, newPatient, page.canvas as Canvas)
-            createPdfDocument.finishPage(page)
-            if (createPdfDocument.pages.size > 2) isHeightAbove330f = false
-        }
+//        var isHeightAbove330f = PaintPage.newPagePainting(context, bitmap, newPatient, Canvas()) //It returning True right now
+//        while (isHeightAbove330f){
+//            val page = createPdfDocument.startPage(pageInf)
+//            PaintPage.pagePainting(context, bitmap, newPatient, page.canvas as Canvas)
+//            createPdfDocument.finishPage(page)
+//            if (createPdfDocument.pages.size > 2) isHeightAbove330f = false
+//        }
         //I want that isHeightAbove330f returns false when height less than 330f
 
 
 
-        //Writing File to the External Storage
-        WritingToStorage.writingToExternalStorage(context, createPdfDocument, newPatient)
+
 
         //New page will be created on basis of last data
         //so it may be 2 page, 3 page, 4 page.. The data will be dynamic

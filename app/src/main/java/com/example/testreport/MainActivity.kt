@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.testreport.freshcreation.ConditionalPageCreation
 import com.example.testreport.freshcreation.CreateThePdf
 import com.example.testreport.helper.*
 import com.example.testreport.model.*
@@ -405,9 +406,14 @@ class MainActivity : AppCompatActivity() {
 //                    bitmap,
 //                    new
 //                )
-                CreateThePdf.createThePdf(
-                    new,
+//                CreateThePdf.createThePdf(
+//                    new,
+//                    applicationContext,
+//                    bitmap
+//                )
+                ConditionalPageCreation.conditionalPageCreation(
                     applicationContext,
+                    new,
                     bitmap
                 )
             }
