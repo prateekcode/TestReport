@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.testreport.freshcreation.CreateThePdf
 import com.example.testreport.helper.*
+import com.example.testreport.java.PageCreation
 import com.example.testreport.model.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     val imageResizer = ImageResizer
     internal var myExternalFile: File? = null
     var newPatientDetail = listOf<NewPatient>()
+    private val pageCreation = PageCreation()
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -405,11 +407,17 @@ class MainActivity : AppCompatActivity() {
 //                    bitmap,
 //                    new
 //                )
-                CreateThePdf.createThePdf(
-                    new,
+//                CreateThePdf.createThePdf(
+//                    new,
+//                    applicationContext,
+//                    bitmap
+//                )
+                pageCreation.conditionalPageCreation(
                     applicationContext,
+                    new,
                     bitmap
                 )
+
             }
             //createNewPdf()
 //                for (x in patientDetail){

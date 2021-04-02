@@ -47,7 +47,7 @@ object PaintPage {
     }
 
     //Header of the Page
-    private fun headerPaint(context: Context, bitmap: Bitmap, canvas: Canvas) {
+    fun headerPaint(context: Context, bitmap: Bitmap, canvas: Canvas) {
         //Start of Top Header (Hospital Details)  (TYPE - STATIC)
         val paint = Paint()
         paint.color = ContextCompat.getColor(context, R.color.custom_blue)
@@ -91,7 +91,7 @@ object PaintPage {
     }
 
     //Patient Detail
-    private fun patientDetail(context: Context, canvas: Canvas, newPatient: NewPatient) {
+    fun patientDetail(context: Context, canvas: Canvas, newPatient: NewPatient) {
         //Start of PATIENT Detail Section
         val paint = Paint()
         paint.color = ContextCompat.getColor(context, R.color.custom_blue)
@@ -134,7 +134,7 @@ object PaintPage {
     }
 
     //Element Header
-    private fun elementHeaderTable(context: Context, canvas: Canvas) {
+    fun elementHeaderTable(context: Context, canvas: Canvas) {
         // Top Header (Static Type)
         val paint = Paint()
         paint.color = ContextCompat.getColor(context, R.color.custom_light_blue)
@@ -183,7 +183,7 @@ object PaintPage {
     }
 
     //Pathologist Detail
-    private fun pathologistDetail(context: Context, canvas: Canvas){
+    fun pathologistDetail(context: Context, canvas: Canvas){
         val textPaintPatient = TextPaint()
         val customTypeFace7 = ResourcesCompat.getFont(context, R.font.roboto_medium)
         textPaintPatient.typeface = customTypeFace7
@@ -207,7 +207,7 @@ object PaintPage {
     }
 
     //Footer of the Page
-    private fun footerPaint(context: Context, canvas: Canvas) {
+    fun footerPaint(context: Context, canvas: Canvas) {
         //Footer1
         val paint = Paint()
         paint.color = ContextCompat.getColor(context, R.color.custom_light_blue)
