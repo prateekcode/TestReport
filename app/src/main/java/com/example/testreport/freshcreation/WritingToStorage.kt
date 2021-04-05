@@ -1,9 +1,12 @@
 package com.example.testreport.freshcreation
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.pdf.PdfDocument
 import android.os.Environment
 import android.widget.Toast
+import androidx.core.content.FileProvider
+import com.example.testreport.BuildConfig
 import com.example.testreport.model.NewPatient
 import java.io.File
 import java.io.FileOutputStream
@@ -15,14 +18,18 @@ object WritingToStorage {
         context: Context,
         pdfDocument: PdfDocument,
         newPatient: NewPatient
-    ){
+    ) {
         if (isExternalStorageWritable()) {
-            val path = Environment.getExternalStorageDirectory().toString() + "/" + "TestReport/"
+
+            val path = context.getExternalFilesDir(null).toString() + "/" + "TestReport/"
             val directory = File(path)
             if (!directory.exists()) {
                 directory.mkdirs()
             }
-            val file = File(Environment.getExternalStorageDirectory(), "/TestReport/${newPatient.patientName + newPatient.gender}.pdf")
+            val file = File(
+                context.getExternalFilesDir(null),
+                "/TestReport/${newPatient.patientName + newPatient.gender}.pdf"
+            )
             //val fileOutputStream: FileOutputStream
 
             try {
@@ -36,6 +43,17 @@ object WritingToStorage {
                     Toast.LENGTH_SHORT
                 )
                     .show()
+
+                val uri = FileProvider.getUriForFile(
+                    context.applicationContext,
+                    "${BuildConfig.APPLICATION_ID}.provider",
+                    file
+                )
+
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.setData(uri)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                context.startActivity(intent)
             } catch (e: IOException) {
                 Toast.makeText(
                     context,

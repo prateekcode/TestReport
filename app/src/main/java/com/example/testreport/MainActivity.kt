@@ -878,6 +878,33 @@ class MainActivity : AppCompatActivity() {
                                         1
                                     )
                                 ),
+                                Parameters(
+                                    "White Blood count",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Neutrophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Lymphocyte percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
 
                                 )
 

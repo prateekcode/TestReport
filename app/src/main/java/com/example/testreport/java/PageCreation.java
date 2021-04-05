@@ -13,15 +13,12 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.example.testreport.R;
-import com.example.testreport.freshcreation.PaintPage;
 import com.example.testreport.freshcreation.WritingToStorage;
 import com.example.testreport.model.Conditions;
 import com.example.testreport.model.NewPatient;
 import com.example.testreport.model.Parameters;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Collection;
 
 public final class PageCreation {
 
@@ -32,90 +29,159 @@ public final class PageCreation {
         PdfDocument createThePdfDocument = new PdfDocument();
         float newValueOfY = 0.0F;
         int pageNumber = 0;
-        int pageNo = 0;
+        int currentPageNumber = 1;
 
         pageHelper = new PageHelper();
         pageWriteToStorage = new PageWriteToStorage();
 
         int sizeOfConditionList = newPatient.getSampleType().getConditionList().size();
-        for(pageNo=0; pageNo<sizeOfConditionList; pageNo++) {
 
-            PdfDocument.Page page = createThePdfDocument.startPage(this.pageInfoHelper(pageNo));
-            Canvas canvas = page.getCanvas();
-            pageHelper.headerPaint(context,bitmap, canvas);
-            pageHelper.patientDetail(context, canvas, newPatient);
-            pageHelper.elementHeaderTable(context, canvas);
+        PdfDocument.Page page;
+        Canvas canvas;
+
+//  Start new page and assign page and canvas to Global variables.
+        page = createThePdfDocument.startPage(this.pageInfoHelper(currentPageNumber++));
+        canvas = page.getCanvas();
+
+//  Print headers
+        pageHelper.headerPaint(context, bitmap, canvas);
+        pageHelper.patientDetail(context, canvas, newPatient);
+        pageHelper.elementHeaderTable(context, canvas);
+
+        newValueOfY = 125.0F;
+
+        for (int pageNo = 0; pageNo < sizeOfConditionList; pageNo++) {
+
+            Conditions condition = newPatient.getSampleType().getConditionList().get(pageNo);
 
             TextPaint textPaint = new TextPaint();
             Paint paint = new Paint();
-            int i = 0;
 
-            Canvas canvas1;
+//  Paint Condition header // Complete Blood count.
+            this.textPaintHelper(textPaint, 6.0F);
+            paint.setColor(ContextCompat.getColor(context, R.color.custom_extra_light_blue));
+            canvas.drawRect(10.0F, newValueOfY, 237.0F, newValueOfY + 10.0F, paint);
+            textPaint.setTextAlign(Paint.Align.CENTER);
+            textPaint.setColor(ContextCompat.getColor(context, R.color.black));
+            canvas.drawText(condition.getCondtionHeader(), (float) canvas.getWidth() / 2.0F, newValueOfY + 7.0F, (Paint) textPaint);
 
-            for(i=0; i<sizeOfConditionList; i++) {
+//  Paint Condition name  // Anemia
+            newValueOfY += 16.5F;
+            Typeface customTypeFace3 = ResourcesCompat.getFont(context, R.font.roboto_medium);
+            textPaint.setTypeface(customTypeFace3);
+            textPaint.setColor(ContextCompat.getColor(context, R.color.black));
+            paint.setColor(ContextCompat.getColor(context, R.color.light_grey));
+            textPaint.setColor(ContextCompat.getColor(context, R.color.black));
+            textPaint.setTextAlign(Paint.Align.CENTER);
+            canvas.drawText(condition.getConditionName(), (float) canvas.getWidth() / 2.0F, newValueOfY, (Paint) textPaint);
 
-                Log.d("ContentValues", "SIZE OF CONDITION LIST --> " + newPatient.getSampleType().getConditionList().size());
+            int conditionTypeListSize = condition.getTestParameters().size();
+
+            for (int i = 0; i < conditionTypeListSize; i++) {
+
+                Log.d("ContentValues", "SIZE OF CONDITION LIST --> " + conditionTypeListSize);
+
+                Parameters parameter = condition.getTestParameters().get(i);
+
                 if (newValueOfY > 330.0F) {
-                    createThePdfDocument.getPages().get(pageNumber++);
+                    pageHelper.footerPaint(context, canvas);
+                    createThePdfDocument.finishPage(page);
+                    page = createThePdfDocument.startPage(this.pageInfoHelper(currentPageNumber++));
+                    canvas = page.getCanvas();
+
+                    pageHelper.headerPaint(context, bitmap, canvas);
+                    pageHelper.patientDetail(context, canvas, newPatient);
+                    pageHelper.elementHeaderTable(context, canvas);
+
+                    newValueOfY = 125.0F;
+                    this.textPaintHelper(textPaint, 6.0F);
+                    paint.setColor(ContextCompat.getColor(context, R.color.custom_extra_light_blue));
+                    canvas.drawRect(10.0F, newValueOfY, 237.0F, newValueOfY + 10.0F, paint);
+                    textPaint.setTextAlign(Paint.Align.CENTER);
+                    textPaint.setColor(ContextCompat.getColor(context, R.color.black));
+                    canvas.drawText(condition.getCondtionHeader(), (float) canvas.getWidth() / 2.0F, newValueOfY + 7.0F, (Paint) textPaint);
+
+//  Paint Condition name  // Anemia
+                    newValueOfY += 16.5F;
+                    Typeface customTypeFace4 = ResourcesCompat.getFont(context, R.font.roboto_medium);
+                    textPaint.setTypeface(customTypeFace4);
+                    textPaint.setColor(ContextCompat.getColor(context, R.color.black));
+                    paint.setColor(ContextCompat.getColor(context, R.color.light_grey));
+                    textPaint.setColor(ContextCompat.getColor(context, R.color.black));
+                    textPaint.setTextAlign(Paint.Align.CENTER);
+                    canvas.drawText(condition.getConditionName(), (float) canvas.getWidth() / 2.0F, newValueOfY, (Paint) textPaint);
+
                     this.textPaintHelper(textPaint, 6.0F);
                     textPaint.setTextAlign(Paint.Align.CENTER);
                     Log.d("ContentValues", "The New Value of Y is " + newValueOfY);
-                    PdfDocument.PageInfo pageInfo = page.getInfo();
-                    pageInfo.getPageNumber();
-                    canvas1 = page.getCanvas();
-                    pageHelper.pathologistDetail(context, canvas1);
+
+//                    PdfDocument.PageInfo pageInfo = page.getInfo();
+//                    pageInfo.getPageNumber();
+//                    canvas1 = page.getCanvas();
+//                    pageHelper.pathologistDetail(context, canvas);
                     Log.d("ContentValues", "conditionalPageCreation: HEIGHT INCREASED");
                 }
+//                int parameter = 0;
 
-                newValueOfY = 125.0F;
-                this.textPaintHelper(textPaint, 6.0F);
-                paint.setColor(ContextCompat.getColor(context, R.color.custom_extra_light_blue));
-                canvas.drawRect(10.0F, newValueOfY, 237.0F, newValueOfY + 10.0F, paint);
-                textPaint.setTextAlign(Paint.Align.CENTER);
-                textPaint.setColor(ContextCompat.getColor(context, R.color.black));
-                canvas.drawText(((Conditions)newPatient.getSampleType().getConditionList().get(i)).getCondtionHeader(), (float)canvas.getWidth() / 2.0F, newValueOfY + 7.0F, (Paint)textPaint);
-                newValueOfY += 16.5F;
-                Typeface customTypeFace3 = ResourcesCompat.getFont(context, R.font.roboto_medium);
-                textPaint.setTypeface(customTypeFace3);
-                textPaint.setColor(ContextCompat.getColor(context, R.color.black));
-                paint.setColor(ContextCompat.getColor(context, R.color.light_grey));
-                textPaint.setColor(ContextCompat.getColor(context, R.color.black));
-                textPaint.setTextAlign(Paint.Align.CENTER);
-                Log.d("ContentValues", "CONDITION NAME of " + newPatient.getPatientName() + ": " + ((Conditions)newPatient.getSampleType().getConditionList().get(i)).getConditionName());
-                Log.d("ContentValues", "Checking the newvalueofY here " + newValueOfY);
-                if (newValueOfY >= 330.0F) {
-                    break;
-                }
+                float yInParameter = newValueOfY + 5.0F + (float) (i * 10 + 10);
 
-                newValueOfY *= (float)(i + 1);
-                canvas.drawRect(10.0F, newValueOfY - 7.0F, 237.0F, newValueOfY + 3.0F, paint);
-                canvas.drawText(((Conditions)newPatient.getSampleType().getConditionList().get(i)).getConditionName(), (float)canvas.getWidth() / 2.0F, newValueOfY, (Paint)textPaint);
-                int parameter = 0;
+                textPaint.setTextAlign(Paint.Align.LEFT);
+                canvas.drawText(parameter.getParameterName(), 20.0F, yInParameter, (Paint) textPaint);
+                canvas.drawText(":   " + parameter.getParameterResponse().getResults(), 97.0F, yInParameter, (Paint) textPaint);
+                canvas.drawText(parameter.getParameterResponse().getUnits(), 135.0F, yInParameter, (Paint) textPaint);
+                canvas.drawText(parameter.getParameterResponse().getRef_range(), 173.0F, yInParameter, (Paint) textPaint);
 
-                for(int var17 = ((Collection)((Conditions)newPatient.getSampleType().getConditionList().get(i)).getConditionTypeList()).size(); parameter < var17; ++parameter) {
-                    textPaint.setTextAlign(Paint.Align.LEFT);
-                    float yInParameter = newValueOfY + 5.0F + (float)(parameter * 10 + 10);
-                    if (newValueOfY >= 330.0F || yInParameter >= 360.0F) {
-                        break;
-                    }
-
-                    canvas.drawText(((Parameters)((Conditions)newPatient.getSampleType().getConditionList().get(i)).getConditionTypeList().get(parameter)).getParameterName(), 20.0F, yInParameter, (Paint)textPaint);
-                    canvas.drawText(":   " + ((Parameters)((Conditions)newPatient.getSampleType().getConditionList().get(i)).getConditionTypeList().get(parameter)).getParameterResponse().getResults(), 97.0F, yInParameter, (Paint)textPaint);
-                    canvas.drawText(((Parameters)((Conditions)newPatient.getSampleType().getConditionList().get(i)).getConditionTypeList().get(parameter)).getParameterResponse().getUnits(), 135.0F, yInParameter, (Paint)textPaint);
-                    canvas.drawText(((Parameters)((Conditions)newPatient.getSampleType().getConditionList().get(i)).getConditionTypeList().get(parameter)).getParameterResponse().getRef_range(), 173.0F, yInParameter, (Paint)textPaint);
-                }
+                Log.e("Y value", " after print Parameter " + parameter.getParameterName() + " --- " + yInParameter);
+//                newValueOfY = yInParameter;
+//                for (int j = 0 ; j< paramsSize ; j++) {
+//                    textPaint.setTextAlign(Paint.Align.LEFT);
+//                    if (newValueOfY >= 330.0F || yInParameter >= 360.0F) {
+//                        pageHelper.footerPaint(context, canvas);
+//                        createThePdfDocument.finishPage(page);
+//                        page = createThePdfDocument.startPage(this.pageInfoHelper(currentPageNumber++));
+//                        canvas = page.getCanvas();
+//
+//                        pageHelper.headerPaint(context, bitmap, canvas);
+//                        pageHelper.patientDetail(context, canvas, newPatient);
+//                        pageHelper.elementHeaderTable(context, canvas);
+//
+//                        newValueOfY = 125.0F;
+//                        this.textPaintHelper(textPaint, 6.0F);
+//                        paint.setColor(ContextCompat.getColor(context, R.color.custom_extra_light_blue));
+//                        canvas.drawRect(10.0F, newValueOfY, 237.0F, newValueOfY + 10.0F, paint);
+//                        textPaint.setTextAlign(Paint.Align.CENTER);
+//                        textPaint.setColor(ContextCompat.getColor(context, R.color.black));
+//                        canvas.drawText(((Conditions) newPatient.getSampleType().getConditionList().get(pageNo)).getCondtionHeader(), (float) canvas.getWidth() / 2.0F, newValueOfY + 7.0F, (Paint) textPaint);
+//
+////  Paint Condition name  // Anemia
+//                        newValueOfY += 16.5F;
+//                        Typeface customTypeFace5 = ResourcesCompat.getFont(context, R.font.roboto_medium);
+//                        textPaint.setTypeface(customTypeFace5);
+//                        textPaint.setColor(ContextCompat.getColor(context, R.color.black));
+//                        paint.setColor(ContextCompat.getColor(context, R.color.light_grey));
+//                        textPaint.setColor(ContextCompat.getColor(context, R.color.black));
+//                        textPaint.setTextAlign(Paint.Align.CENTER);
+//                        canvas.drawText(((Conditions) newPatient.getSampleType().getConditionList().get(pageNo)).getConditionName(), (float) canvas.getWidth() / 2.0F, newValueOfY, (Paint) textPaint);
+//
+//                    }
+//
+//                    canvas.drawText(((Parameters) ((Conditions) newPatient.getSampleType().getConditionList().get(pageNo)).getTestParameters().get(i)).getParameterName(), 20.0F, yInParameter, (Paint) textPaint);
+//                    canvas.drawText(":   " + ((Parameters) ((Conditions) newPatient.getSampleType().getConditionList().get(pageNo)).getTestParameters().get(j)).getParameterResponse().getResults(), 97.0F, yInParameter, (Paint) textPaint);
+//                    canvas.drawText(((Parameters) ((Conditions) newPatient.getSampleType().getConditionList().get(pageNo)).getTestParameters().get(j)).getParameterResponse().getUnits(), 135.0F, yInParameter, (Paint) textPaint);
+//                    canvas.drawText(((Parameters) ((Conditions) newPatient.getSampleType().getConditionList().get(pageNo)).getTestParameters().get(j)).getParameterResponse().getRef_range(), 173.0F, yInParameter, (Paint) textPaint);
+//                }
             }
 
-            canvas1 = page.getCanvas();
-            pageHelper.footerPaint(context, canvas1);
-            createThePdfDocument.finishPage(page);
+            newValueOfY = newValueOfY + 5.0F + (float) (conditionTypeListSize * 10 + 10);
         }
+        pageHelper.pathologistDetail(context, canvas);
+        pageHelper.footerPaint(context, canvas);
+        createThePdfDocument.finishPage(page);
         WritingToStorage.INSTANCE.writingToExternalStorage(context, createThePdfDocument, newPatient);
     }
 
 
-
-    private final void pageCreationConditional(Context context, NewPatient newPatient, Bitmap bitmap){
+    private final void pageCreationConditional(Context context, NewPatient newPatient, Bitmap bitmap) {
         PdfDocument createThePdfDocument = new PdfDocument();
         float newValueOfY = 0.0F;
         int pageNumber = 0;
@@ -131,6 +197,7 @@ public final class PageCreation {
 
 
     private PdfDocument.PageInfo pageInfoHelper(int pageNumber) {
+        Log.e("PageNumber", String.valueOf(pageNumber));
         return (new PdfDocument.PageInfo.Builder(250, 400, pageNumber)).create();
     }
 
