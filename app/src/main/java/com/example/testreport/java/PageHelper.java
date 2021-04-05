@@ -57,8 +57,8 @@ public class PageHelper {
         paint.setAntiAlias(true);
         paint.setFilterBitmap(true);
         paint.setDither(true);
-        Bitmap bitmap1 = PdfCreator.INSTANCE.BITMAP_RESIZER(bitmap, 30, 20);
-        canvas.drawBitmap(bitmap1, 10.0F, 0.0F, paint);
+        Bitmap bitmap1 = PdfCreator.INSTANCE.BITMAP_RESIZER(bitmap, 65, 20);
+        canvas.drawBitmap(bitmap1, 5.0F, 20.0F, paint);
     }
 
     public final void patientDetail(@NotNull Context context, @NotNull Canvas canvas, @NotNull NewPatient newPatient) {
@@ -74,27 +74,27 @@ public class PageHelper {
         textPaintPatient.setSubpixelText(true);
         textPaintPatient.setColor(ContextCompat.getColor(context, R.color.white));
         textPaintPatient.setTextSize(6.0F);
-        canvas.drawText("Patient Name   :", 10.0F, 65.0F, (Paint)textPaintPatient);
-        canvas.drawText("Age & Gender   :", 10.0F, 75.0F, (Paint)textPaintPatient);
-        canvas.drawText("Referred by      :", 10.0F, 85.0F, (Paint)textPaintPatient);
-        canvas.drawText("Sample Type    :", 10.0F, 95.0F, (Paint)textPaintPatient);
+        canvas.drawText("Patient Name   :", 10.0F, 65.0F, (Paint) textPaintPatient);
+        canvas.drawText("Age & Gender   :", 10.0F, 75.0F, (Paint) textPaintPatient);
+        canvas.drawText("Referred by      :", 10.0F, 85.0F, (Paint) textPaintPatient);
+        canvas.drawText("Sample Type    :", 10.0F, 95.0F, (Paint) textPaintPatient);
         Typeface customTypeFace5 = ResourcesCompat.getFont(context, R.font.roboto);
         textPaintPatient.setTypeface(customTypeFace5);
-        canvas.drawText(newPatient.getPatientName(), 60.0F, 65.0F, (Paint)textPaintPatient);
-        canvas.drawText(newPatient.getAge() + " Year/" + newPatient.getGender(), 60.0F, 75.0F, (Paint)textPaintPatient);
-        canvas.drawText(newPatient.getReferredDoctor(), 60.0F, 85.0F, (Paint)textPaintPatient);
-        canvas.drawText(newPatient.getSampleType().getSampleTypeName(), 60.0F, 95.0F, (Paint)textPaintPatient);
+        canvas.drawText(newPatient.getPatientName(), 60.0F, 65.0F, (Paint) textPaintPatient);
+        canvas.drawText(newPatient.getAge() + " Year/" + newPatient.getGender(), 60.0F, 75.0F, (Paint) textPaintPatient);
+        canvas.drawText(newPatient.getReferredDoctor(), 60.0F, 85.0F, (Paint) textPaintPatient);
+        canvas.drawText(newPatient.getSampleType().getSampleTypeName(), 60.0F, 95.0F, (Paint) textPaintPatient);
         paint.setColor(ContextCompat.getColor(context, R.color.white));
-        float midX = (float)(canvas.getWidth() / 2);
+        float midX = (float) (canvas.getWidth() / 2);
         canvas.drawLine(midX, 50.0F, midX, 110.0F, paint);
         textPaintPatient.setTypeface(Typeface.create("Roboto", Typeface.BOLD));
-        canvas.drawText("Authorization Date   :", midX + 4.0F, 65.0F, (Paint)textPaintPatient);
-        canvas.drawText("Report Date   :", midX + 4.0F, 75.0F, (Paint)textPaintPatient);
-        canvas.drawText("Patient ID      :", midX + 4.0F, 85.0F, (Paint)textPaintPatient);
+        canvas.drawText("Authorization Date   :", midX + 4.0F, 65.0F, (Paint) textPaintPatient);
+        canvas.drawText("Report Date   :", midX + 4.0F, 75.0F, (Paint) textPaintPatient);
+        canvas.drawText("Patient ID      :", midX + 4.0F, 85.0F, (Paint) textPaintPatient);
         textPaintPatient.setTypeface(Typeface.create("Roboto", Typeface.BOLD));
-        canvas.drawText(newPatient.getAuthorizationDate(), midX + (float)62, 65.0F, (Paint)textPaintPatient);
-        canvas.drawText(newPatient.getReportDate(), midX + (float)62, 75.0F, (Paint)textPaintPatient);
-        canvas.drawText(newPatient.getPatientId(), midX + (float)62, 85.0F, (Paint)textPaintPatient);
+        canvas.drawText(newPatient.getAuthorizationDate(), midX + (float) 62, 65.0F, (Paint) textPaintPatient);
+        canvas.drawText(newPatient.getReportDate(), midX + (float) 62, 75.0F, (Paint) textPaintPatient);
+        canvas.drawText(newPatient.getPatientId(), midX + (float) 62, 85.0F, (Paint) textPaintPatient);
     }
 
     public final void elementHeaderTable(@NotNull Context context, @NotNull Canvas canvas) {
@@ -107,15 +107,15 @@ public class PageHelper {
         textPaintPatient.setColor(ContextCompat.getColor(context, R.color.white));
         canvas.drawRect(10.0F, 115.0F, 80.0F, 125.0F, paint);
         textPaintPatient.setTypeface(Typeface.create("Roboto", Typeface.BOLD));
-        canvas.drawText("Parameter", 20.0F, 122.0F, (Paint)textPaintPatient);
+        canvas.drawText("Parameter", 20.0F, 122.0F, (Paint) textPaintPatient);
         canvas.drawRect(83.0F, 115.0F, 123.0F, 125.0F, paint);
-        canvas.drawText("Results", 88.0F, 122.0F, (Paint)textPaintPatient);
+        canvas.drawText("Results", 88.0F, 122.0F, (Paint) textPaintPatient);
         canvas.drawRect(126.0F, 115.0F, 162.0F, 125.0F, paint);
-        canvas.drawText("Units", 130.0F, 122.0F, (Paint)textPaintPatient);
+        canvas.drawText("Units", 130.0F, 122.0F, (Paint) textPaintPatient);
         canvas.drawRect(165.0F, 115.0F, 202.0F, 125.0F, paint);
-        canvas.drawText("Ref. Range", 168.0F, 122.0F, (Paint)textPaintPatient);
+        canvas.drawText("Ref. Range", 168.0F, 122.0F, (Paint) textPaintPatient);
         canvas.drawRect(205.0F, 115.0F, 237.0F, 125.0F, paint);
-        canvas.drawText("Barcode", 209.0F, 122.0F, (Paint)textPaintPatient);
+        canvas.drawText("Barcode", 209.0F, 122.0F, (Paint) textPaintPatient);
     }
 
     private final float elementTableContent(Context context, Canvas canvas, NewPatient newPatient) {
@@ -136,31 +136,33 @@ public class PageHelper {
         textPaintPatient.setSubpixelText(true);
         textPaintPatient.setTextSize(6.0F);
         textPaintPatient.setColor(ContextCompat.getColor(context, R.color.black));
-        canvas.drawText("Pathologist Signature", 170.0F, 330.0F, (Paint)textPaintPatient);
+        canvas.drawText("Pathologist Signature", 170.0F, 330.0F, (Paint) textPaintPatient);
         Typeface customTypeFace8 = ResourcesCompat.getFont(context, R.font.roboto);
         textPaintPatient.setTypeface(customTypeFace8);
         textPaintPatient.setTextSize(4.0F);
-        canvas.drawText("Dr. Ganesh Hansram", 170.0F, 350.0F, (Paint)textPaintPatient);
-        canvas.drawText("Radiologist  |  MD", 170.0F, 355.0F, (Paint)textPaintPatient);
-        canvas.drawText("3542656", 190.0F, 360.0F, (Paint)textPaintPatient);
+        canvas.drawText("Dr. Ganesh Hansram", 170.0F, 350.0F, (Paint) textPaintPatient);
+        canvas.drawText("Radiologist  |  MD", 170.0F, 355.0F, (Paint) textPaintPatient);
+        canvas.drawText("3542656", 190.0F, 360.0F, (Paint) textPaintPatient);
         textPaintPatient.setTypeface(customTypeFace7);
-        canvas.drawText("Reg. No.", 170.0F, 360.0F, (Paint)textPaintPatient);
+        canvas.drawText("Reg. No.", 170.0F, 360.0F, (Paint) textPaintPatient);
     }
 
     public final void footerPaint(@NotNull Context context, @NotNull Canvas canvas) {
         Paint paint = new Paint();
         paint.setColor(ContextCompat.getColor(context, R.color.custom_light_blue));
         canvas.drawRect(0.0F, 370.0F, 300.0F, 390.0F, paint);
-        float xPos1 = (float)(canvas.getWidth() / 5);
+        float xPos1 = (float) (canvas.getWidth() / 8);
         TextPaint textPaint1 = new TextPaint();
         Typeface customTypeFace6 = ResourcesCompat.getFont(context, R.font.roboto_medium);
         textPaint1.setColor(ContextCompat.getColor(context, R.color.white));
         textPaint1.setTextSize(6.0F);
         textPaint1.setTypeface(customTypeFace6);
-        canvas.drawText("+91 8508092626  |  support@mefy.care  |  CIN No. - 547474684656457", xPos1, 383.0F, (Paint)textPaint1);
+//        textPaint1.setTextAlign(Paint.Align.LEFT);
+        canvas.drawText("+91 8508092626  |  support@mefy.care  |  CIN No. - 547474684656457", xPos1, 383.0F, (Paint) textPaint1);
         paint.setColor(ContextCompat.getColor(context, R.color.custom_blue));
         canvas.drawRect(0.0F, 390.0F, 300.0F, 400.0F, paint);
-        float xPos = (float)(canvas.getWidth() / 4);
+
+        float xPos = (float) (canvas.getWidth() / 5);
         TextPaint textPaint = new TextPaint();
         textPaint.setColor(ContextCompat.getColor(context, R.color.white));
         textPaint.setTextSize(5.5F);
@@ -169,7 +171,7 @@ public class PageHelper {
         textPaint.setLinearText(true);
         textPaint.setSubpixelText(true);
         textPaint.setTypeface(customTypeFace6);
-        canvas.drawText("This Prescription is automatically generated by MeFy Care", xPos, 397.0F, (Paint)textPaint);
+        canvas.drawText("This Prescription is automatically generated by MeFy Care", xPos, 397.0F, (Paint) textPaint);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(500.0F);
         paint.setColor(ContextCompat.getColor(context, R.color.custom_blue));
