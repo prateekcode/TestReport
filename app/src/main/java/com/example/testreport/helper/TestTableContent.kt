@@ -30,7 +30,7 @@ fun testTableContent(context: Context, newPatient: NewPatient, paint: Paint, can
         textPaintPatient.color = ContextCompat.getColor(context, R.color.black)
         val middleValueOfX = (237f-10f)/2.4f
         canvas.drawText(
-            newPatient.sampleType.conditionList[i].condtionHeader,
+            newPatient.sampleType.conditionList[i].conditionHeader,
             middleValueOfX,
             132F,
             textPaintPatient

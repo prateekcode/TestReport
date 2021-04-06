@@ -39,7 +39,7 @@ fun testTableContent3(
         canvas.drawRect(10F, 125F, 237F, 135F, paint)
         textPaintPatient.color = ContextCompat.getColor(context, R.color.black)
         canvas.drawText(
-            newPatient.sampleType.conditionList[i].condtionHeader,
+            newPatient.sampleType.conditionList[i].conditionHeader,
             95F,
             132F,
             textPaintPatient

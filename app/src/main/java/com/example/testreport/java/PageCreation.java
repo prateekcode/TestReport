@@ -60,7 +60,7 @@ public final class PageCreation {
             canvas.drawRect(10.0F, newValueOfY, 237.0F, newValueOfY + 10.0F, paint);
             textPaint.setTextAlign(Paint.Align.CENTER);
             textPaint.setColor(ContextCompat.getColor(context, R.color.black));
-            canvas.drawText(condition.getCondtionHeader(), (float) canvas.getWidth() / 2.0F, newValueOfY + 7.0F, (Paint) textPaint);
+            canvas.drawText(condition.getConditionHeader(), (float) canvas.getWidth() / 2.0F, newValueOfY + 7.0F, (Paint) textPaint);
 
 //  Paint Condition name  // Anemia
             newValueOfY += 16.5F;
@@ -96,7 +96,7 @@ public final class PageCreation {
                     canvas.drawRect(10.0F, newValueOfY, 237.0F, newValueOfY + 10.0F, paint);
                     textPaint.setTextAlign(Paint.Align.CENTER);
                     textPaint.setColor(ContextCompat.getColor(context, R.color.black));
-                    canvas.drawText(condition.getCondtionHeader(), (float) canvas.getWidth() / 2.0F, newValueOfY + 7.0F, (Paint) textPaint);
+                    canvas.drawText(condition.getConditionHeader(), (float) canvas.getWidth() / 2.0F, newValueOfY + 7.0F, (Paint) textPaint);
 
 //  Paint Condition name  // Anemia
                     newValueOfY += 16.5F;

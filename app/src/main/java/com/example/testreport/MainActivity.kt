@@ -331,6 +331,78 @@ class MainActivity : AppCompatActivity() {
                                         1
                                     )
                                 ),
+                                Parameters(
+                                    "MCHC (Calculated)",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "MCHC (Calculated)",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "MCHC (Calculated)",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "MCHC (Calculated)",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "MCHC (Calculated)",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "MCHC (Calculated)",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "MCHC (Calculated)",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "MCHC (Calculated)",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
 
                                 )
 
