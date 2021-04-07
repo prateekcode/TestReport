@@ -183,9 +183,9 @@ class MainActivity : AppCompatActivity() {
                 "22/03/2021",
                 SampleType(
                     "EDTA_blood",
+                    "Blood Test Report",
                     conditionList = listOf(
                         Conditions(
-                            "Complete Blood Count",
                             "Anaemia",
                             listOf(
                                 Parameters(
@@ -253,11 +253,11 @@ class MainActivity : AppCompatActivity() {
                                 ),
 
 
+
                                 )
                         ),
                         Conditions(
                             "Complete Blood Count",
-                            "Total & Differencial Count",
                             listOf(
                                 Parameters(
                                     "White Blood count",
@@ -359,7 +359,7 @@ class MainActivity : AppCompatActivity() {
                                     )
                                 ),
                                 Parameters(
-                                    "MCHC (Calculated)",
+                                    "Anidnidn",
                                     ParameterResponse(
                                         "12.7",
                                         "12",
@@ -368,7 +368,7 @@ class MainActivity : AppCompatActivity() {
                                     )
                                 ),
                                 Parameters(
-                                    "MCHC (Calculated)",
+                                    "fweihfio",
                                     ParameterResponse(
                                         "12.7",
                                         "12",
@@ -377,7 +377,7 @@ class MainActivity : AppCompatActivity() {
                                     )
                                 ),
                                 Parameters(
-                                    "MCHC (Calculated)",
+                                    "fowjjf",
                                     ParameterResponse(
                                         "12.7",
                                         "12",
@@ -386,7 +386,7 @@ class MainActivity : AppCompatActivity() {
                                     )
                                 ),
                                 Parameters(
-                                    "MCHC (Calculated)",
+                                    "fwepofpe",
                                     ParameterResponse(
                                         "12.7",
                                         "12",
@@ -395,7 +395,7 @@ class MainActivity : AppCompatActivity() {
                                     )
                                 ),
                                 Parameters(
-                                    "MCHC (Calculated)",
+                                    "orjjeofr",
                                     ParameterResponse(
                                         "12.7",
                                         "12",
@@ -408,7 +408,6 @@ class MainActivity : AppCompatActivity() {
 
                         ),
                         Conditions(
-                            "Complete Blood Count",
                             "Hormone Check",
                             listOf(
                                 Parameters(
