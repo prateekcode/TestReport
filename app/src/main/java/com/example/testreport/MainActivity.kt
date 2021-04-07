@@ -10,7 +10,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.testreport.freshcreation.CreateThePdf
 import com.example.testreport.helper.*
+import com.example.testreport.java.PageCreation
 import com.example.testreport.model.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     val imageResizer = ImageResizer
     internal var myExternalFile: File? = null
     var newPatientDetail = listOf<NewPatient>()
+    private val pageCreation = PageCreation()
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,334 +79,31 @@ class MainActivity : AppCompatActivity() {
 //        val imageWidth: Int = options.outWidth
 //        val imageType: String = options.outMimeType
 
-        bitmap = pdfCreator.getBitmapFromVectorDrawable(applicationContext, R.drawable.ic_mobile)!!
+        bitmap = pdfCreator.getBitmapFromVectorDrawable(applicationContext, R.drawable.logo)!!
         scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 20, false)
         //scaledBitmap = pdfCreator.BITMAP_RESIZER(bitmap, 200, 18)!!
-
-        val patientDetail = arrayOf<Patient>(
-            Patient(
-                "Array Kumar",
-                32,
-                "Male",
-                "Dr. Kotlin Generic",
-                "EDTA_Blood",
-                1234,
-                Parameter(
-                    hgb_haemoglobin = ParameterResponse(
-                        "18",
-                        "g/dL",
-                        "14-18",
-                        0
-                    ),
-                    hct_hematocrit = ParameterResponse(
-                        "18",
-                        "g/dL",
-                        "14-18",
-                        0
-                    ),
-                    hct_hgb = ParameterResponse(
-                        "18",
-                        "g/dL",
-                        "14-18",
-                        0
-                    ),
-                    mchc = ParameterResponse(
-                        "18",
-                        "g/dL",
-                        "14-18",
-                        0
-                    ),
-                    hct_hgb_calculated = ParameterResponse(
-                        "2.7",
-                        "",
-                        "2.5-3.2",
-                        0
-                    ),
-                    wbc_count = ParameterResponse(
-                        "3.7",
-                        "10^9/L",
-                        "3.7-9.7",
-                        0
-                    ),
-                    neutrophil_percent = ParameterResponse(
-                        "43.8",
-                        "%",
-                        "42.9-78.4",
-                        0
-                    ),
-                    lymphocyte_percent = ParameterResponse(
-                        "42.3",
-                        "%",
-                        "14.1-15.8",
-                        0
-                    ),
-                    monocyte_percent = ParameterResponse(
-                        "3.5",
-                        "%",
-                        "3.3-9.2",
-                        0
-                    ),
-                    eosinophil_percent = ParameterResponse(
-                        "2.3",
-                        "%",
-                        "0.3-6.2",
-                        0
-                    ),
-                    basophil_percent = ParameterResponse(
-                        "1.2",
-                        "%",
-                        "0.3-1.3",
-                        0
-                    ),
-                    neutrophil_absolute_number = ParameterResponse(
-                        "5.3",
-                        "10^9/L",
-                        "2.0-6.7",
-                        0
-                    ),
-                    lymphocyte_absolute_number = ParameterResponse(
-                        "2.9",
-                        "10^9/L",
-                        "1.1-3.3",
-                        0
-                    ),
-                    monocyte_absolute_number = ParameterResponse(
-                        0.5.toInt().toString(),
-                        "10^9/L",
-                        "0.2-0.7",
-                        0
-                    ),
-                    eosinophil_absolute_number = ParameterResponse(
-                        0.1.toInt().toString(),
-                        "10^9/L",
-                        "0.0-0.1",
-                        0
-                    ),
-                    basophil_absolute_number = ParameterResponse(
-                        0.1.toInt().toString(),
-                        "10^9/L",
-                        "0.0-0.1",
-                        0
-                    ),
-                    nlr_calculated = ParameterResponse(
-                        1.53.toInt().toString(),
-                        "",
-                        "1.63",
-                        0
-                    )
-                )
-            ),
-            Patient(
-                "ForLoop Kumar",
-                22,
-                "Male",
-                "Dr. Kotlin Generic",
-                "EDTA_Blood",
-                4567,
-                Parameter(
-                    hgb_haemoglobin = ParameterResponse(
-                        "18",
-                        "g/dL",
-                        "14-18",
-                        0
-                    ),
-                    hct_hematocrit = ParameterResponse(
-                        "18",
-                        "g/dL",
-                        "14-18",
-                        0
-                    ),
-                    hct_hgb = ParameterResponse(
-                        "18",
-                        "g/dL",
-                        "14-18",
-                        0
-                    ),
-                    mchc = ParameterResponse(
-                        "18",
-                        "g/dL",
-                        "14-18",
-                        0
-                    ),
-                    hct_hgb_calculated = ParameterResponse(
-                        2.7.toInt().toString(),
-                        "",
-                        "2.5-3.2",
-                        0
-                    ),
-                    wbc_count = ParameterResponse(
-                        3.7.toInt().toString(),
-                        "10^9/L",
-                        "3.7-9.7",
-                        0
-                    ),
-                    neutrophil_percent = ParameterResponse(
-                        43.8.toInt().toString(),
-                        "%",
-                        "42.9-78.4",
-                        0
-                    ),
-                    lymphocyte_percent = ParameterResponse(
-                        42.3.toInt().toString(),
-                        "%",
-                        "14.1-15.8",
-                        0
-                    ),
-                    monocyte_percent = ParameterResponse(
-                        3.5.toInt().toString(),
-                        "%",
-                        "3.3-9.2",
-                        0
-                    ),
-                    eosinophil_percent = ParameterResponse(
-                        2.3.toInt().toString(),
-                        "%",
-                        "0.3-6.2", 0
-                    ),
-                    basophil_percent = ParameterResponse(
-                        1.2.toInt().toString(),
-                        "%",
-                        "0.3-1.3", 0
-                    ),
-                    neutrophil_absolute_number = ParameterResponse(
-                        5.3.toInt().toString(),
-                        "10^9/L",
-                        "2.0-6.7", 0
-                    ),
-                    lymphocyte_absolute_number = ParameterResponse(
-                        2.9.toInt().toString(),
-                        "10^9/L",
-                        "1.1-3.3", 0
-                    ),
-                    monocyte_absolute_number = ParameterResponse(
-                        0.5.toInt().toString(),
-                        "10^9/L",
-                        "0.2-0.7", 0
-                    ),
-                    eosinophil_absolute_number = ParameterResponse(
-                        0.1.toInt().toString(),
-                        "10^9/L",
-                        "0.0-0.1", 0
-                    ),
-                    basophil_absolute_number = ParameterResponse(
-                        0.1.toInt().toString(),
-                        "10^9/L",
-                        "0.0-0.1", 0
-                    ),
-                    nlr_calculated = ParameterResponse(
-                        1.53.toInt().toString(),
-                        "",
-                        "1.63", 0
-                    )
-                )
-            ),
-            Patient(
-                "MainActivity Saheb",
-                52,
-                "Male",
-                "Dr. Kotlin Generic",
-                "EDTA_Blood",
-                7890,
-                Parameter(
-                    hgb_haemoglobin = ParameterResponse(
-                        "18",
-                        "g/dL",
-                        "14-18", 0
-                    ),
-                    hct_hematocrit = ParameterResponse(
-                        "18",
-                        "g/dL",
-                        "14-18", 0
-                    ),
-                    hct_hgb = ParameterResponse(
-                        "18",
-                        "g/dL",
-                        "14-18", 0
-                    ),
-                    mchc = ParameterResponse(
-                        "18",
-                        "g/dL",
-                        "14-18", 0
-                    ),
-                    hct_hgb_calculated = ParameterResponse(
-                        2.7.toInt().toString(),
-                        "",
-                        "2.5-3.2", 0
-                    ),
-                    wbc_count = ParameterResponse(
-                        3.7.toInt().toString(),
-                        "10^9/L",
-                        "3.7-9.7", 0
-                    ),
-                    neutrophil_percent = ParameterResponse(
-                        43.8.toInt().toString(),
-                        "%",
-                        "42.9-78.4", 0
-                    ),
-                    lymphocyte_percent = ParameterResponse(
-                        42.3.toInt().toString(),
-                        "%",
-                        "14.1-15.8", 0
-                    ),
-                    monocyte_percent = ParameterResponse(
-                        3.5.toInt().toString(),
-                        "%",
-                        "3.3-9.2", 0
-                    ),
-                    eosinophil_percent = ParameterResponse(
-                        2.3.toInt().toString(),
-                        "%",
-                        "0.3-6.2", 0
-                    ),
-                    basophil_percent = ParameterResponse(
-                        1.2.toInt().toString(),
-                        "%",
-                        "0.3-1.3", 0
-                    ),
-                    neutrophil_absolute_number = ParameterResponse(
-                        5.3.toInt().toString(),
-                        "10^9/L",
-                        "2.0-6.7", 0
-                    ),
-                    lymphocyte_absolute_number = ParameterResponse(
-                        2.9.toInt().toString(),
-                        "10^9/L",
-                        "1.1-3.3", 0
-                    ),
-                    monocyte_absolute_number = ParameterResponse(
-                        0.5.toInt().toString(),
-                        "10^9/L",
-                        "0.2-0.7", 0
-                    ),
-                    eosinophil_absolute_number = ParameterResponse(
-                        0.1.toInt().toString(),
-                        "10^9/L",
-                        "0.0-0.1", 0
-                    ),
-                    basophil_absolute_number = ParameterResponse(
-                        0.1.toInt().toString(),
-                        "10^9/L",
-                        "0.0-0.1", 0
-                    ),
-                    nlr_calculated = ParameterResponse(
-                        1.53.toInt().toString(),
-                        "",
-                        "1.63", 0
-                    )
-                )
-            ),
-        )
         newPatientDetails()
 
         permissionCheck(false)
         buttonSavePdf.setOnClickListener {
             permissionCheck(true)
             for (new in newPatientDetail) {
-                NewPdfCreator.createFreshTestReport(
+//                NewPdfCreator.createFreshTestReport(
+//                    applicationContext,
+//                    bitmap,
+//                    new
+//                )
+//                CreateThePdf.createThePdf(
+//                    new,
+//                    applicationContext,
+//                    bitmap
+//                )
+                pageCreation.conditionalPageCreation(
                     applicationContext,
-                    bitmap,
-                    new
+                    new,
+                    bitmap
                 )
+
             }
             //createNewPdf()
 //                for (x in patientDetail){
@@ -483,9 +183,9 @@ class MainActivity : AppCompatActivity() {
                 "22/03/2021",
                 SampleType(
                     "EDTA_blood",
+                    "Blood Test Report",
                     conditionList = listOf(
                         Conditions(
-                            "Complete Blood Count",
                             "Anaemia",
                             listOf(
                                 Parameters(
@@ -553,11 +253,11 @@ class MainActivity : AppCompatActivity() {
                                 ),
 
 
+
                                 )
                         ),
                         Conditions(
                             "Complete Blood Count",
-                            "Total & Differencial Count",
                             listOf(
                                 Parameters(
                                     "White Blood count",
@@ -595,14 +295,119 @@ class MainActivity : AppCompatActivity() {
                                         1
                                     )
                                 ),
-
-
+                                Parameters(
+                                    "White Blood count",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Neutrophil percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Lymphocyte percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "Monocyte percent",
+                                    ParameterResponse(
+                                        "3.7",
+                                        "10^9/L",
+                                        "3.7-9.3",
+                                        1
+                                    )
+                                ),
+                                Parameters(
+                                    "MCHC (Calculated)",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "MCHC (Calculated)",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "MCHC (Calculated)",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "Anidnidn",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "fweihfio",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "fowjjf",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "fwepofpe",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
+                                Parameters(
+                                    "orjjeofr",
+                                    ParameterResponse(
+                                        "12.7",
+                                        "12",
+                                        "14-18",
+                                        2
+                                    )
+                                ),
 
                                 )
 
                         ),
                         Conditions(
-                            "Complete Blood Count",
                             "Hormone Check",
                             listOf(
                                 Parameters(
@@ -627,306 +432,8 @@ class MainActivity : AppCompatActivity() {
                         )
                     )
                 )
-            ),
-            NewPatient(
-                "PersonName2",
-                28,
-                "F",
-                "Dr. Reportrix",
-                "1411",
-                "19/03/2021",
-                "25/03/2021",
-                SampleType(
-                    "Urine Check",
-                    conditionList = listOf(
-                        Conditions(
-                            "Complete Blood Count",
-                            "Anaemia",
-                            listOf(
-                                Parameters(
-                                    "Hgb Haemoglobin",
-                                    ParameterResponse(
-                                        "12.7",
-                                        "12",
-                                        "14-18",
-                                        2
-                                    )
-                                ),
-                                Parameters(
-                                    "Hct Hematocrit",
-                                    ParameterResponse(
-                                        "12.7",
-                                        "12",
-                                        "14-18",
-                                        2
-                                    )
-                                ),
-                                Parameters(
-                                    "Hct/Hgb (Calculated)",
-                                    ParameterResponse(
-                                        "12.7",
-                                        "12",
-                                        "14-18",
-                                        2
-                                    )
-                                ),
-                                Parameters(
-                                    "MCHC (Calculated)",
-                                    ParameterResponse(
-                                        "12.7",
-                                        "12",
-                                        "14-18",
-                                        2
-                                    )
-                                ),
-                                Parameters(
-                                    "MCHC (Calculated)",
-                                    ParameterResponse(
-                                        "12.7",
-                                        "12",
-                                        "14-18",
-                                        2
-                                    )
-                                ),
-                                Parameters(
-                                    "MCHC (Calculated)",
-                                    ParameterResponse(
-                                        "12.7",
-                                        "12",
-                                        "14-18",
-                                        2
-                                    )
-                                ),
-                                Parameters(
-                                    "MCHC (Calculated)",
-                                    ParameterResponse(
-                                        "12.7",
-                                        "12",
-                                        "14-18",
-                                        2
-                                    )
-                                ),
-                                Parameters(
-                                    "Hgb Haemoglobin",
-                                    ParameterResponse(
-                                        "12.7",
-                                        "12",
-                                        "14-18",
-                                        2
-                                    )
-                                ),
-                                Parameters(
-                                    "Hct Hematocrit",
-                                    ParameterResponse(
-                                        "12.7",
-                                        "12",
-                                        "14-18",
-                                        2
-                                    )
-                                ),
-                                Parameters(
-                                    "Hct/Hgb (Calculated)",
-                                    ParameterResponse(
-                                        "12.7",
-                                        "12",
-                                        "14-18",
-                                        2
-                                    )
-                                ),
-                            )
-                        ),
-                        Conditions(
-                            "Complete Blood Count",
-                            "Total & Differencial Count",
-                            listOf(
-                                Parameters(
-                                    "White Blood count",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Neutrophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Lymphocyte percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Monocyte percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-
-                                )
-
-                        ),
-                        Conditions(
-                            "Complete Blood Count",
-                            "Test of Heart",
-                            listOf(
-                                Parameters(
-                                    "Red Blood Cell",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Neutrophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Lymphocyte percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Monocyte percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-                                Parameters(
-                                    "Eosinophil percent",
-                                    ParameterResponse(
-                                        "3.7",
-                                        "10^9/L",
-                                        "3.7-9.3",
-                                        1
-                                    )
-                                ),
-
-                                )
-
-                        )
-                    )
-                )
-            ),
-
             )
+        )
     }
 
     private fun permissionCheck(check: Boolean) {

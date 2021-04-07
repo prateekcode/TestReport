@@ -2,7 +2,6 @@ package com.example.testreport.helper
 
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.text.TextPaint
@@ -40,7 +39,7 @@ fun testTableContent3(
         canvas.drawRect(10F, 125F, 237F, 135F, paint)
         textPaintPatient.color = ContextCompat.getColor(context, R.color.black)
         canvas.drawText(
-            newPatient.sampleType.conditionList[i].condtionHeader,
+            newPatient.sampleType.conditionHeader,
             95F,
             132F,
             textPaintPatient
@@ -82,13 +81,13 @@ fun testTableContent3(
                 textPaintPatient.isAntiAlias = true
                 textPaintPatient.isLinearText = true
                 textPaintPatient.isSubpixelText = true
-                for (parameter in 0..newPatient.sampleType.conditionList[i].conditionTypeList.lastIndex) {
+                for (parameter in 0..newPatient.sampleType.conditionList[i].testParameters.lastIndex) {
                     Log.d(TAG, "Parameters are $parameter")
                     if (globalY <= 330f) {
                         globalY =
                             lastValues.lastHeight + 24 + (((parameter - (lastValues.lastValueOfI)) * 10) + 10).toFloat()
                         canvas.drawText(
-                            newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterName,
+                            newPatient.sampleType.conditionList[i].testParameters[parameter].parameterName,
                             20F,
                             globalY,
                             textPaintPatient
@@ -99,21 +98,21 @@ fun testTableContent3(
                         )
                         //Results
                         canvas.drawText(
-                            ":   ${newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.results}",
+                            ":   ${newPatient.sampleType.conditionList[i].testParameters[parameter].parameterResponse.results}",
                             97F,
                             globalY,
                             textPaintPatient
                         )
                         //Units
                         canvas.drawText(
-                            newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.units,
+                            newPatient.sampleType.conditionList[i].testParameters[parameter].parameterResponse.units,
                             135F,
                             globalY,
                             textPaintPatient
                         )
                         //Ref Range
                         canvas.drawText(
-                            newPatient.sampleType.conditionList[i].conditionTypeList[parameter].parameterResponse.ref_range,
+                            newPatient.sampleType.conditionList[i].testParameters[parameter].parameterResponse.ref_range,
                             173F,
                             globalY,
                             textPaintPatient

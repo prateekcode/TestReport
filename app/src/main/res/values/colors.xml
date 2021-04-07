@@ -17,5 +17,6 @@
 
     <color name="custom_blue">#143b77</color>
     <color name="custom_light_blue">#27619b</color>
+    <color name="extra_light_blue">#9F9FFF</color>
     <color name="custom_extra_light_blue">#e1e4ea</color>
 </resources>
