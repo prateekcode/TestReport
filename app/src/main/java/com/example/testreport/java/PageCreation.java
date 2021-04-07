@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.example.testreport.R;
-import com.example.testreport.freshcreation.WritingToStorage;
+import com.example.testreport.helper.WritingToStorage;
 import com.example.testreport.model.Conditions;
 import com.example.testreport.model.NewPatient;
 import com.example.testreport.model.Parameters;

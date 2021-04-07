@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.example.testreport.R;
-import com.example.testreport.helper.PdfCreator;
+import com.example.testreport.helper.ImageResizer;
 import com.example.testreport.model.NewPatient;
 
 import org.jetbrains.annotations.NotNull;
@@ -57,7 +57,7 @@ public class PageHelper {
         paint.setAntiAlias(true);
         paint.setFilterBitmap(true);
         paint.setDither(true);
-        Bitmap bitmap1 = PdfCreator.INSTANCE.BITMAP_RESIZER(bitmap, 65, 20);
+        Bitmap bitmap1 = ImageResizer.INSTANCE.BITMAP_RESIZER(bitmap, 65, 20);
         canvas.drawBitmap(bitmap1, 5.0F, 20.0F, paint);
     }
 
